@@ -1,41 +1,28 @@
-// backend/server.js
 import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 8000;
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Helper to read JSON files
-const readJSON = (fileName) => {
-  const filePath = path.join(__dirname, "data", fileName);
-  const data = fs.readFileSync(filePath, "utf-8");
-  return JSON.parse(data);
-};
+const __dirname = path.resolve();
 
-// Routes
 app.get("/api/frontend/navbar", (req, res) => {
-  res.json(readJSON("navbar.json"));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/navbar.json")));
+  res.json(data);
 });
 
 app.get("/api/frontend/home", (req, res) => {
-  res.json(readJSON("hero.json"));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/hero.json")));
+  res.json(data);
 });
 
 app.get("/api/frontend/services", (req, res) => {
-  res.json(readJSON("services.json"));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/services.json")));
+  res.json(data);
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`✅ Backend running on http://localhost:${PORT}`);
-});
+const port = process.env.PORT || 8000;
+app.listen(port, () => console.log(`✅ Server running on port ${port}`));

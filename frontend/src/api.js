@@ -1,26 +1,19 @@
-import axios from "axios";
-
 const BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:8000/api/frontend"
     : "/api/frontend";
 
-// export const getNavbarData = async () => {
-//   const response = await axios.get(`${BASE_URL}/navbar`);
-//   return response.data;
-// };
 export const getNavbarData = async () => {
-  const response = await axios.get(`${BASE_URL}/navbar`);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/navbar`);
+  return res.json();
 };
 
-
 export const getHomeData = async () => {
-  const response = await axios.get(`${BASE_URL}/home`);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/home`);
+  return res.json();
 };
 
 export const getServicesData = async () => {
-  const response = await axios.get(`${BASE_URL}/services`);
-  return response.data;
+  const res = await fetch(`${BASE_URL}/services`);
+  return res.json();
 };
