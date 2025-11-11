@@ -10,17 +10,17 @@ app.use(express.json());
 const __dirname = path.resolve();
 
 app.get("/api/frontend/navbar", (req, res) => {
-  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/navbar.json")));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "/data/navbar.json")));
   res.json(data);
 });
 
 app.get("/api/frontend/home", (req, res) => {
-  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/hero.json")));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "/data/hero.json")));
   res.json(data);
 });
 
 app.get("/api/frontend/services", (req, res) => {
-  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "backend/data/services.json")));
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "/data/services.json")));
   res.json(data);
 });
 
