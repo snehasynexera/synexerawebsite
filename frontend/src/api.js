@@ -1,5 +1,9 @@
-import axios from "axios"
-const BASE_URL = "http://127.0.0.1:5000//api/frontend";
+import axios from "axios";
+
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:8000/api/frontend"
+    : "/api/frontend";
 
 // export const getNavbarData = async () => {
 //   const response = await axios.get(`${BASE_URL}/navbar`);
