@@ -88,18 +88,22 @@ export default function Home() {
       <footer className="bg-[#0A4C7C] text-white py-6 mt-12 w-full overflow-hidden">
         <div className="animate-scrollLogos">
           {/* Original logos */}
-            <span className="inline-flex items-center gap-48 mr-48">
-              {home.logos?.map((logo, index) => (
-                <img key={index} src={logo.src} alt={logo.alt} className="w-40 h-12" />
-              ))}
-            </span>
+          <span className="inline-flex items-center gap-48 mr-48">
+          <img src="/logos/spotify.png" alt="Spotify" className="h-8" />
+          <img src="/logos/zoom.png" alt="Zoom" className="h-8" />
+          <img src="/logos/slack.png" alt="Slack" className="h-8" />
+          <img src="/logos/amazon.png" alt="Amazon" className="h-8" />
+          <img src="/logos/adobe.png" alt="Adobe" className="h-8" />
+          </span>
 
-            {/* Duplicate logos for continuous scrolling */}
-            <span className="inline-flex items-center gap-48 mr-48">
-              {home.logos?.map((logo, index) => (
-                <img key={`dup-${index}`} src={logo.src} alt={logo.alt} className="w-40 h-12" />
-              ))}
-            </span>
+          {/* Duplicate logos immediately after original */}
+          <span className="inline-flex items-center gap-48">
+          <img src="/logos/spotify.png" alt="Spotify" className="h-8" />
+          <img src="/logos/zoom.png" alt="Zoom" className="h-8" />
+          <img src="/logos/slack.png" alt="Slack" className="h-8" />
+          <img src="/logos/amazon.png" alt="Amazon" className="h-8" />
+          <img src="/logos/adobe.png" alt="Adobe" className="h-8" />
+          </span>
         </div>
       </footer>
     <Services />
