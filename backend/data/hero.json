@@ -6,5 +6,11 @@
   "subtext": "From concept to creation, we help you build experiences that define the future of digital innovation.",
   "tagline1": "We Value your Time  | ",
   "tagline2": "We Value you",
-  "buttonText": "Get Started"
+  "buttonText": "Get Started",
+  "logos": [
+    { "src": "/bhavya.png", "alt": "Spotify" },
+    { "src": "/Equal_solution.png", "alt": "Zoom" },
+    { "src": "/HC_Group.png", "alt": "Amazon" },
+    { "src": "/Lakshay.png", "alt": "Adobe" }
+  ]
 }
