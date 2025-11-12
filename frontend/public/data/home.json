@@ -6,5 +6,13 @@
   "subtext": "From concept to creation, we help you build experiences that define the future of digital innovation.",
   "tagline1": "We Value your Time  | ",
   "tagline2": "We Value you",
-  "buttonText": "Get Started"
+  "buttonText": "Get Started",
+  "logos": [
+    { "src": "/images/ACG.png", "alt": "ACG" },
+    { "src": "/images/bhavya.png", "alt": "bhavya" },
+    { "src": "/images/Equal_solution.png", "alt": "Equal_solution" },
+    { "src": "/images/Lakshay.png", "alt": "Lakshay" },
+    { "src": "/images/PRL.png", "alt": "PRL" },
+    { "src": "/images/vastrangam.png", "alt": "vastrangam" }
+  ]
 }
