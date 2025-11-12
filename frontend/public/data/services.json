@@ -1,0 +1,32 @@
+{
+  "leftText": "Core Services",
+  "title": "Our Most Valuable",
+  "highlight": "services",
+  "description": "From concept to creation, we help you build experiences that define the future of digital innovation.",
+  "cards": [
+    {
+      "title": "Mobile App Development",
+      "image": "/images/Mobile.png"
+    },
+    {
+      "title": "Web App Development",
+      "image": "/images/Mobile.png"
+    },
+    {
+      "title": "Content Writing",
+      "image": "/images/Mobile.png"
+    },
+    {
+      "title": "Data Entry",
+      "image": "/images/Mobile.png"
+    },
+    {
+      "title": "Data Entry",
+      "image": "/images/Mobile.png"
+    },
+    {
+      "title": "Data Entry",
+      "image": "/images/Mobile.png"
+    }
+  ]
+}

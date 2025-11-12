@@ -25,7 +25,7 @@ export default function Home() {
       {/* Synexera logo (scrollable, not part of navbar) */}
       <div className="absolute top-4 left-8 z-20 flex items-center gap-3">
         <img
-          src="/synexera.svg"
+          src="/images/synexera.svg"
           alt={home.logo || "Synexera"}
           className="h-12 w-12 object-contain"
         />
