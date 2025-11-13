@@ -23,6 +23,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
+import Footer from "./pages/Footer";
 // (Add About, Services, Contact if you have them)
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="*" element={<h2>404 - Page Not Found</h2>} />
         </Routes>
       </div>
+      <Footer/>
     </Router>
   );
 }
