@@ -1,0 +1,33 @@
+{
+  "leftText": "Core Testimonials",
+  "label": "Core Ser",
+  "title": "Why people",
+  "highlight": "Value",
+  "ending": "Us",
+  "description": "Real experiences from people who trusted us with their ideas and projects.",
+  "gradient": {
+    "from": "#252869",
+    "to": "#0b0716"
+  },
+  "testimonials": [
+    {
+      "message": "Working with Synexra felt like adding a high performance engine to our startup. Their UX thinking and clean execution gave us a major edge in the market.",
+      "name": "Lorem Ipsum",
+      "role": "CEO, Equal Solutions",
+      "avatar": null
+    },
+    {
+      "message": "Synexra delivered our product with unmatched quality and speed. Their approach to design and engineering was flawless.",
+      "name": "John Doe",
+      "role": "Founder, FutureTech",
+      "avatar": null
+    },
+    {
+      "message": "A team of true professionals. The communication, clarity, and execution exceeded expectations.",
+      "name": "Emily Carter",
+      "role": "CTO, VisionLabs",
+      "avatar": null
+    }
+  ],
+  "belowHeroLine": "We’re a dedicated team of developers, designers, and strategists creating future-ready products, with our precise execution giving us a distinct advantage"
+}
