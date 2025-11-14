@@ -17,3 +17,9 @@ export const getServicesData = async () => {
   if (!res.ok) throw new Error("Failed to load services data");
   return res.json();
 };
+
+export const getTestimonialsData = async () => {
+  const res = await fetch(`${BASE_URL}/testimonials.json`);
+  if (!res.ok) throw new Error("Failed to load testimonials data");
+  return res.json();
+};

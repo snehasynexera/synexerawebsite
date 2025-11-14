@@ -23,6 +23,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
+import Testimonials from "./pages/Testimonials";
+import Projects from "./pages/Projects";
+import About from "./pages/About";
 // (Add About, Services, Contact if you have them)
 
 function App() {
@@ -37,6 +40,9 @@ function App() {
           {/* ✅ Home route */}
           <Route path="/home" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
 
           {/* Add more routes here */}
           {/* <Route path="/about" element={<About />} /> */}
