@@ -5,7 +5,7 @@ import { Sparkle, HeartPulse, ChevronsRight } from "lucide-react";
 import Services from "./Services";
 import Testimonials from "./Testimonials";
 import Projects from "./Projects";
-import About from "./About";
+import Footer from "./Footer";
 
 export default function Home() {
   const [home, setHome] = useState({});
@@ -88,7 +88,7 @@ export default function Home() {
       </section>
 
       {/* Footer Logos */}
-      <footer className="bg-[#0A4C7C] text-white py-3 sm:py-4 mt-12 w-full overflow-hidden">
+      <footer className="bg-[#070B55] text-white py-3 sm:py-4 mt-12 w-full overflow-hidden">
         <div className="animate-scrollLogos whitespace-nowrap flex items-center">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="inline-flex items-center gap-24 sm:gap-36 md:gap-48 mr-24 sm:mr-36 md:mr-48">
@@ -124,7 +124,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about">
-        <About />
+        <Footer />
       </section>
 
     </main>

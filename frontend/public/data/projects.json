@@ -1,0 +1,92 @@
+[
+  {
+    "projectId": 1,
+    "projectName": "Synexera Website",
+    "chapters": [
+      {
+        "category": "Brand ✦ Website",
+        "title": "Overview",
+        "desc": "A visual-first platform to showcase services and case studies.",
+        "image": "/case/1-overview.jpg",
+        "imagePosition": "left"
+      },
+      {
+        "category": "Brand ✦ Website",
+        "title": "Approach",
+        "desc": "Focused on clarity, high-performance, and simple navigation.",
+        "image": "/case/1-approach.jpg",
+        "imagePosition": "right"
+      },
+      {
+        "category": "Brand ✦ Website",
+        "title": "Impact",
+        "desc": "Delivered performance boosts & higher engagement.",
+        "image": "/case/1-impact.jpg",
+        "imagePosition": "left"
+      }
+    ]
+  },
+
+  {
+    "projectId": 2,
+    "projectName": "Fintech Dashboard",
+    "chapters": [
+      {
+        "category": "UX ✦ Web App",
+        "title": "Overview",
+        "desc": "A real-time dashboard for financial monitoring.",
+        "image": "/case/2-overview.jpg",
+        "imagePosition": "right"
+      },
+      {
+        "category": "UX ✦ Web App",
+        "title": "Research",
+        "desc": "User interviews revealed issues with clarity & overload.",
+        "image": "/case/2-research.jpg",
+        "imagePosition": "left"
+      },
+      {
+        "category": "UX ✦ Web App",
+        "title": "Solution",
+        "desc": "Introduced smart grouping & color-driven insights.",
+        "image": "/case/2-solution.jpg",
+        "imagePosition": "right"
+      },
+      {
+        "category": "UX ✦ Web App",
+        "title": "Outcome",
+        "desc": "Users completed tasks 40% faster than before.",
+        "image": "/case/2-outcome.jpg",
+        "imagePosition": "left"
+      }
+    ]
+  },
+
+  {
+    "projectId": 3,
+    "projectName": "E-commerce Redesign",
+    "chapters": [
+      {
+        "category": "UI ✦ UX ✦ Website",
+        "title": "Overview",
+        "desc": "A mobile-first redesign of a fashion e-commerce store.",
+        "image": "/case/3-overview.jpg",
+        "imagePosition": "left"
+      },
+      {
+        "category": "UI ✦ UX ✦ Website",
+        "title": "Strategy",
+        "desc": "Improved onboarding, checkout flow, and product filters.",
+        "image": "/case/3-strategy.jpg",
+        "imagePosition": "right"
+      },
+      {
+        "category": "UI ✦ UX ✦ Website",
+        "title": "Results",
+        "desc": "Bounce rate dropped, and conversions increased 28%.",
+        "image": "/case/3-results.jpg",
+        "imagePosition": "left"
+      }
+    ]
+  }
+]
