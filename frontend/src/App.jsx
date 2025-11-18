@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Projects from "./pages/Projects";
-import About from "./pages/About";
+import Footer from "./pages/Footer";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/footer" element={<Footer />} />
 
           {/* Redirect unknown routes to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

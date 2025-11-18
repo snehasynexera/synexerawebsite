@@ -23,3 +23,16 @@ export const getTestimonialsData = async () => {
   if (!res.ok) throw new Error("Failed to load testimonials data");
   return res.json();
 };
+
+export const getFooterData = async () => {
+  const res = await fetch(`${BASE_URL}/footer.json`);
+  if (!res.ok) throw new Error("Failed to load footer data");
+  return res.json();
+};
+
+
+export const getCaseStudiesData = async () => {
+  const res = await fetch(`${BASE_URL}/projects.json`);
+  if (!res.ok) throw new Error("Failed to load case studies data");
+  return res.json();
+};

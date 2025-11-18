@@ -1,0 +1,33 @@
+{
+  "title": "Let’s have a chat",
+  "buttonText": "Let’s Connect",
+  "logo": {
+    "src": "/images/synexera.svg",
+    "text": "Synexera"
+  },
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis orci elementum egestas lobortis.",
+  "socialLinks": [
+    { "icon": "facebook" },
+    { "icon": "instagram" },
+    { "icon": "whatsapp" },
+    { "icon": "linkedin" }
+  ],
+  "navigation": [
+    { "label": "Home", "id": "home" },
+    { "label": "Services", "id": "services" },
+    { "label": "Testimonials", "id": "testimonials" },
+    { "label": "Projects", "id": "projects" }
+    ],
+  "contact": {
+    "phone": "+91 7738443436",
+    "email": "Joycreag3@gmail.com",
+    "portfolio": "Portfolio-jcrea.com"
+  },
+  "newsletter": {
+    "placeholder": "Email Address"
+  },
+  "bottomLinks": {
+    "terms": "User Terms & Conditions",
+    "privacy": "Privacy Policy"
+  }
+}
