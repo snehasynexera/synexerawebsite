@@ -6,6 +6,7 @@ export default function Navbar() {
   const [links, setLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
+  const [isOverDarkBanner, setIsOverDarkBanner] = useState(false);
 
   // ✅ Load navbar links dynamically
   useEffect(() => {
@@ -58,8 +59,31 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
   }, [links]);
+
+  // ✅ Detect when navbar is over dark testimonials banner
+  useEffect(() => {
+    const handleScroll = () => {
+      const testimonialSection = document.getElementById("testimonials");
+      if (testimonialSection) {
+        const scrollY = window.scrollY;
+        const testimonialTop = testimonialSection.offsetTop;
+        const testimonialHeight = testimonialSection.offsetHeight;
+        const testimonialBottom = testimonialTop + testimonialHeight;
+
+        // If current scroll position is within testimonials section
+        const isOver = scrollY >= testimonialTop && scrollY < testimonialBottom;
+        console.log("scrollY:", scrollY, "testimonialTop:", testimonialTop, "testimonialBottom:", testimonialBottom, "isOver:", isOver);
+        setIsOverDarkBanner(isOver);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <nav className="fixed top-6 left-0 w-full z-50">
@@ -69,7 +93,11 @@ export default function Navbar() {
 
         {/* DESKTOP NAV */}
         <div className="hidden xl:flex justify-center w-full relative">
-          <div className="bg-[#070B55] text-white rounded-full px-6 py-2 flex items-center gap-6 shadow-lg backdrop-blur-md">
+          <div className={`rounded-full px-6 py-2 flex items-center gap-6 shadow-lg backdrop-blur-md transition-all duration-300 ${
+            isOverDarkBanner
+              ? "bg-white text-[#071234]"
+              : "bg-[#070B55] text-white"
+          }`}>
             {links.map((label, i) => (
               <button
                 key={i}
@@ -77,6 +105,8 @@ export default function Navbar() {
                 className={`px-5 py-1 rounded-full text-sm font-medium transition-all duration-300 ${
                   active === label
                     ? "bg-[#22F6F2] text-[#071234]"
+                    : isOverDarkBanner
+                    ? "text-[#071234] hover:text-[#22F6F2]"
                     : "text-white hover:text-[#22F6F2]"
                 }`}
               >
@@ -88,7 +118,11 @@ export default function Navbar() {
           {/* Contact Us Button */}
           <button
             onClick={() => handleScroll("Contact Us")}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 border-[#070B55] text-[#070B55] rounded-full text-sm font-medium transition-all duration-300 hover:bg-[#070B55] hover:text-white"
+            className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              isOverDarkBanner
+                ? "border-white text-white hover:bg-white hover:text-[#070B55]"
+                : "border-[#070B55] text-[#070B55] hover:bg-[#070B55] hover:text-white"
+            }`}
             style={{ marginRight: '134px' }}
           >
             Contact Us
