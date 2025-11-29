@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { getTestimonialsData } from "../api"; // make sure api exposes getTestimonialsData using BASE_URL pattern
-import { User, Star } from "lucide-react";
+import { User, Star, Sparkle } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -62,35 +62,47 @@ export default function Testimonials() {
   return (
     <>
         {/* header row - left small scrolling text + title */}
-          <div className="mx-auto py-12 px-6 md:px-12 lg:px-24 flex items-start justify-between">
-            <div>
-              <div className="relative w-[180px] overflow-hidden mb-3">
-                <div className="animate-scrollText text-[15px] font-base tracking-wide whitespace-nowrap flex gap-4 text-black/80">
-                  <span className="flex gap-2 items-center">
-                    {data.leftText}
-                    <User className="w-4 h-4"/>
-                  </span>
-                  <span className="flex gap-2 items-center">
-                    {data.leftText}
-                    <User className="w-4 h-4" />
-                  </span>
-                </div>
+        <section className="relative bg-white text-[#071234] py-12 px-6 md:px-16 lg:px-24 overflow-hidden">
+          <div className="w-full mb-12 relative">
+            {/* Left Scrolling Text */}
+            <div className="relative w-[180px] overflow-hidden mb-4">
+              <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
+                <span className="flex gap-2 items-center">{data.leftText || "Core Testimonials"} <Sparkle className="text-black w-5 h-5" /></span>
+                <span className="flex gap-2 items-center">{data.leftText || "Core Testimonials"} <Sparkle className="text-black w-5 h-5" /></span>
               </div>
-
-              <h2 className="text-5xl md:text-6xl font-extrabold text-black leading-tight">
-                {data.title}{" "}
-                <span className="text-[#0DBCC1] underline decoration-4 underline-offset-4">
-                  {data.highlight}
-                </span>{" "}
-                <p>{data.ending}</p>
-                
-              </h2>
             </div>
 
-            {/* <p className="hidden md:block text-right text-black/70 max-w-md">
-              {data.description}
-            </p> */}
+            {/* Flex container for title and description alignment */}
+            <div className="flex items-center justify-between w-full">
+              {/* Left Description */}
+              <div style={{ lineHeight: '1.1' }}>
+                <div className="flex items-baseline flex-wrap gap-3">
+                  <h2 className="font-bold text-[48px]" style={{ fontFamily: 'Syne' }}>
+                    {data.title}
+                  </h2>
+                  <h2 className="font-bold text-[48px] text-[#0DBCC1] underline decoration-4 underline-offset-4" style={{ fontFamily: 'Syne' }}>
+                    {data.highlight}
+                  </h2>
+                </div>
+                {data.ending && <h2 className="font-bold text-[48px]" style={{ fontFamily: 'Syne' }}>{data.ending}</h2>}
+              </div>
+
+              {/* Right Description (aligned vertically with title) */}
+              <p className="flex-shrink-0" style={{
+                color: '#000',
+                textAlign: 'right',
+                fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif',
+                fontSize: '22px',
+                fontStyle: 'normal',
+                fontWeight: '300',
+                lineHeight: 'normal',
+                width: '400px'
+              }}>
+                {data.description}
+              </p>
+            </div>
           </div>
+        </section>
 
       {/* Testimonial band */}
       <section
@@ -101,7 +113,7 @@ export default function Testimonials() {
         }}
       >
         <div className="max-w-7xl mx-auto py-8 px-4 md:px-6 lg:px-12">
-        
+
 
           {/* Swiper testimonial slides — large single-card feel like your design */}
           <div className="relative">
@@ -151,13 +163,13 @@ export default function Testimonials() {
                           <div className="inline-block w-3 h-3 bg-white/40 rounded-full mr-2" />
                           <div className="inline-block w-3 h-3 bg-white/40 rounded-full" />
                         </div> */}
-                        <div className="mt-8 flex gap-2"> 
+                        <div className="mt-8 flex gap-2">
                             <Star color="yellow" fill="yellow"/>
                             <Star color="yellow" fill="yellow"/>
                             <Star color="yellow" fill="yellow"/>
                             <Star color="yellow" fill="yellow"/>
                         </div>
-                        
+
                       </div>
                     </div>
 
@@ -175,7 +187,25 @@ export default function Testimonials() {
       </section>
 
       <section className="py-16 px-6 md:px-16 lg:px-24 relative" ref={textRevealRef}>
-        <div className="relative font-extrabold text-[28px] md:text-[36px] lg:text-[44px] leading-[1.3]">
+        {/* Scrolling "Team of Developers" text */}
+        <div className="flex justify-center" style={{ marginBottom: '45px' }}>
+          <div className="relative w-[220px] overflow-hidden">
+            <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
+              <span className="flex gap-2 items-center">Team of Developers <Sparkle className="text-black w-5 h-5" /></span>
+              <span className="flex gap-2 items-center">Team of Developers <Sparkle className="text-black w-5 h-5" /></span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{
+          color: '#070B55',
+          textAlign: 'center',
+          fontFamily: '"SF Pro Display"',
+          fontSize: '48px',
+          fontStyle: 'normal',
+          fontWeight: '600',
+          lineHeight: 'normal'
+        }}>
             {/* Word-by-word reveal based on scroll */}
             <p>
               {data.belowHeroLine.split(' ').map((word, index, arr) => {
@@ -199,7 +229,14 @@ export default function Testimonials() {
                     </span>
                     {/* Red cursor after current word */}
                     {isCurrent && (
-                      <span className="text-red-500 font-extrabold">|</span>
+                      <span style={{
+                        color: '#F00',
+                        fontFamily: '"SF Pro Display"',
+                        fontSize: '48px',
+                        fontStyle: 'normal',
+                        fontWeight: '300',
+                        lineHeight: 'normal'
+                      }}>|</span>
                     )}
                     {index < arr.length - 1 && ' '}
                   </span>
@@ -207,7 +244,14 @@ export default function Testimonials() {
               })}
               {/* Show cursor at end when fully revealed */}
               {revealPercent >= 100 && (
-                <span className="text-red-500 font-extrabold">|</span>
+                <span style={{
+                  color: '#F00',
+                  fontFamily: '"SF Pro Display"',
+                  fontSize: '48px',
+                  fontStyle: 'normal',
+                  fontWeight: '300',
+                  lineHeight: 'normal'
+                }}>|</span>
               )}
             </p>
         </div>
