@@ -71,35 +71,57 @@ button:focus-visible {
 @tailwind components;
 @tailwind utilities;
 
+/* Apply Syne font globally */
+* {
+  font-family: 'Syne', sans-serif;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+}
+
 @keyframes scrollText {
-  100% {
+  0% {
     transform: translateX(0);
   }
-  0% {
-    transform: translateX(-50%); /* move half of the total width for seamless loop */
+  100% {
+    transform: translateX(-50%);
   }
 }
 
 .animate-scrollText {
-  display: flex;
+  display: inline-flex;
   white-space: nowrap;
-  width: max-content; /* important for flex scrolling */
-  animation: scrollText 10s linear infinite;
+  animation: scrollText 15s linear infinite;
+}
+
+/* Marquee animation - starts from middle position for consistent display */
+@keyframes marquee {
+  0% {
+    transform: translateX(-16.66%); /* Start at -1/6 of total width (since we have 6 copies) */
+  }
+  100% {
+    transform: translateX(-50%); /* End at -3/6 (half) of total width */
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
 }
 
 @keyframes scrollLogos {
-  100% {
+  0% {
     transform: translateX(0);
   }
-  0% {
-    transform: translateX(-50%); /* scroll half of duplicated content width */
+  100% {
+    transform: translateX(-25%); /* scroll 1/4 of duplicated content width since we have 4 copies */
   }
 }
 
 .animate-scrollLogos {
   display: flex;
   width: max-content; /* important for seamless scroll */
-  animation: scrollLogos 25s linear infinite;
+  animation: scrollLogos 40s linear infinite;
   align-items: center;
 }
 
