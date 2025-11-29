@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getTestimonialsData } from "../api"; // make sure api exposes getTestimonialsData using BASE_URL pattern
 import { User, Star } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +8,8 @@ import "swiper/css/pagination";
 
 export default function Testimonials() {
   const [data, setData] = useState(null);
+  const [revealPercent, setRevealPercent] = useState(0);
+  const textRevealRef = useRef(null);
 
   useEffect(() => {
     async function load() {
@@ -20,6 +22,40 @@ export default function Testimonials() {
     }
     load();
   }, []);
+
+  // Scroll-based text reveal effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!textRevealRef.current) return;
+
+      const element = textRevealRef.current;
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Calculate how far through the element we've scrolled
+      // Start revealing when element enters viewport, complete when it's about to leave
+      const elementTop = rect.top;
+      const elementHeight = rect.height;
+
+      // Start point: when element top reaches bottom of viewport
+      // End point: when element top reaches top of viewport
+      const startPoint = windowHeight;
+      const endPoint = -elementHeight;
+      const totalDistance = startPoint - endPoint;
+      const currentPosition = startPoint - elementTop;
+
+      // Calculate percentage (0 to 100)
+      let percent = (currentPosition / totalDistance) * 100;
+      percent = Math.max(0, Math.min(100, percent));
+
+      setRevealPercent(percent);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [data]);
 
   if (!data) return null;
 
@@ -138,23 +174,43 @@ export default function Testimonials() {
         <div className="h-1 bg-gradient-to-r from-[#0DBCC1] to-transparent opacity-80" />
       </section>
 
-      <section className="py-16 px-6 md:px-16 lg:px-24 relative">
-        <div className="relative font-extrabold text-[44px] leading-[1.2]">
-            {/* Grey base text */}
-            <p className="text-[#B6BCC9]">
-                {data.belowHeroLine}
-            </p>
+      <section className="py-16 px-6 md:px-16 lg:px-24 relative" ref={textRevealRef}>
+        <div className="relative font-extrabold text-[28px] md:text-[36px] lg:text-[44px] leading-[1.3]">
+            {/* Word-by-word reveal based on scroll */}
+            <p>
+              {data.belowHeroLine.split(' ').map((word, index, arr) => {
+                const totalWords = arr.length;
+                // Calculate threshold for this word (when it should be revealed)
+                const wordThreshold = (index / totalWords) * 100;
+                const isRevealed = revealPercent > wordThreshold;
+                // Check if this is the "current" word (cursor position)
+                const nextThreshold = ((index + 1) / totalWords) * 100;
+                const isCurrent = revealPercent > wordThreshold && revealPercent <= nextThreshold;
 
-            {/* Black masked text (revealed as cursor moves) */}
-            <p className="absolute inset-0 text-black whitespace-nowrap overflow-hidden animate-mask">
-                {data.belowHeroLine}
+                return (
+                  <span key={index} className="relative inline">
+                    <span
+                      className="transition-colors duration-150"
+                      style={{
+                        color: isRevealed ? '#070B55' : '#B6BCC9'
+                      }}
+                    >
+                      {word}
+                    </span>
+                    {/* Red cursor after current word */}
+                    {isCurrent && (
+                      <span className="text-red-500 font-extrabold">|</span>
+                    )}
+                    {index < arr.length - 1 && ' '}
+                  </span>
+                );
+              })}
+              {/* Show cursor at end when fully revealed */}
+              {revealPercent >= 100 && (
+                <span className="text-red-500 font-extrabold">|</span>
+              )}
             </p>
-
-            {/* Red cursor */}
-            <span className="absolute top-0 text-red-500 text-[44px] font-extrabold animate-cursor">
-                |
-            </span>
-            </div>
+        </div>
     </section>
     </>
   );

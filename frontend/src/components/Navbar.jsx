@@ -32,9 +32,9 @@ export default function Navbar() {
 
     const section = document.getElementById(label.toLowerCase().replace(/\s+/g, ""));
     if (section) {
-      const offset = 100; // Adjust for navbar height
+      const offset = 80; // Adjust for navbar height
       const top = section.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
+      window.scrollTo({ top, behavior: "smooth", duration: 1000 });
     }
   };
 
@@ -68,7 +68,7 @@ export default function Navbar() {
         <div></div>
 
         {/* DESKTOP NAV */}
-        <div className="hidden xl:flex justify-center w-full">
+        <div className="hidden xl:flex justify-center w-full relative">
           <div className="bg-[#070B55] text-white rounded-full px-6 py-2 flex items-center gap-6 shadow-lg backdrop-blur-md">
             {links.map((label, i) => (
               <button
@@ -84,6 +84,15 @@ export default function Navbar() {
               </button>
             ))}
           </div>
+
+          {/* Contact Us Button */}
+          <button
+            onClick={() => handleScroll("Contact Us")}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 border-[#070B55] text-[#070B55] rounded-full text-sm font-medium transition-all duration-300 hover:bg-[#070B55] hover:text-white"
+            style={{ marginRight: '134px' }}
+          >
+            Contact Us
+          </button>
         </div>
 
         {/* MOBILE MENU ICON */}
