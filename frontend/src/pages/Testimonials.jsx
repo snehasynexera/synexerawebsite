@@ -62,8 +62,8 @@ export default function Testimonials() {
   return (
     <>
         {/* header row - left small scrolling text + title */}
-        <section className="relative bg-white text-[#071234] py-12 px-6 md:px-16 lg:px-24 overflow-hidden">
-          <div className="w-full mb-12 relative">
+        <section className="relative bg-white text-[#071234] px-6 md:px-16 lg:px-24 overflow-hidden" style={{ paddingTop: '0px', paddingBottom: '48px' }}>
+          <div className="w-full mb-8 relative">
             {/* Left Scrolling Text */}
             <div className="relative w-[180px] overflow-hidden mb-4">
               <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
@@ -109,7 +109,8 @@ export default function Testimonials() {
         id="testimonials"
         className="relative w-full overflow-hidden"
         style={{
-          background: `linear-gradient(90deg, ${data.gradient.from}, ${data.gradient.to})`
+          background: `linear-gradient(90deg, ${data.gradient.from}, ${data.gradient.to})`,
+          paddingBottom: '0px'
         }}
       >
         <div className="max-w-7xl mx-auto py-8 px-4 md:px-6 lg:px-12">
