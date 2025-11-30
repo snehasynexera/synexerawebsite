@@ -4,8 +4,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function PortfolioGallery({ items }) {
   const scrollContainerRef = useRef(null);
   const autoScrollIntervalRef = useRef(null);
+  const scrollbarRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [isDraggingScrollbar, setIsDraggingScrollbar] = useState(false);
+  const [isScrollbarHovered, setIsScrollbarHovered] = useState(false);
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -75,6 +78,63 @@ export default function PortfolioGallery({ items }) {
     setIsAutoScrolling(false);
     setTimeout(() => setIsAutoScrolling(true), 5000);
   };
+
+  // Calculate scrollbar thumb position and size
+  const getScrollbarThumbStyle = () => {
+    if (!scrollContainerRef.current) return {};
+
+    const container = scrollContainerRef.current;
+    const scrollWidth = container.scrollWidth - container.clientWidth;
+    const scrollLeft = container.scrollLeft;
+
+    // Thumb width represents viewport size relative to total content (reduced to 1/2 of original)
+    const thumbWidthPercent = (container.clientWidth / container.scrollWidth) * 100;
+    const thumbWidthAdjusted = thumbWidthPercent * 0.5;
+
+    // Thumb position based on scroll progress
+    const thumbPosition = (scrollLeft / scrollWidth) * (100 - thumbWidthAdjusted);
+
+    return {
+      width: `${thumbWidthAdjusted}%`,
+      left: `${thumbPosition}%`,
+      position: 'absolute',
+      height: '100%'
+    };
+  };
+
+  // Handle scrollbar thumb drag
+  const handleScrollbarThumbMouseDown = () => {
+    setIsDraggingScrollbar(true);
+    setIsAutoScrolling(false);
+  };
+
+  useEffect(() => {
+    if (!isDraggingScrollbar) return;
+
+    const handleMouseMove = (e) => {
+      if (!scrollbarRef.current || !scrollContainerRef.current) return;
+
+      const scrollbarRect = scrollbarRef.current.getBoundingClientRect();
+      const percentage = Math.max(0, Math.min(1, (e.clientX - scrollbarRect.left) / scrollbarRect.width));
+
+      const container = scrollContainerRef.current;
+      const scrollWidth = container.scrollWidth - container.clientWidth;
+      container.scrollLeft = scrollWidth * percentage;
+    };
+
+    const handleMouseUp = () => {
+      setIsDraggingScrollbar(false);
+      setTimeout(() => setIsAutoScrolling(true), 5000);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDraggingScrollbar]);
 
   return (
     <div className="w-full">
@@ -149,15 +209,24 @@ export default function PortfolioGallery({ items }) {
       </div>
 
       {/* Interactive Scrollbar */}
-      <div className="w-full mt-8 px-4">
+      <div className="w-full mt-12 px-4">
         <div
-          className="relative w-full h-1 bg-gray-300 rounded-full cursor-pointer group/scrollbar"
+          ref={scrollbarRef}
+          className="relative w-full h-1 bg-gray-300 rounded-full cursor-pointer"
           onClick={handleScrollbarDrag}
+          onMouseEnter={() => setIsScrollbarHovered(true)}
+          onMouseLeave={() => setIsScrollbarHovered(false)}
         >
-          {/* Scrollbar Progress Indicator */}
+          {/* Scrollbar Thumb */}
           <div
-            className="absolute h-full bg-[#070B55] rounded-full transition-all duration-75 group-hover/scrollbar:h-2"
-            style={{ width: `${Math.min(scrollProgress + 15, 100)}%` }}
+            className="bg-[#070B55] rounded-full transition-all duration-75 cursor-grab active:cursor-grabbing"
+            style={{
+              ...getScrollbarThumbStyle(),
+              height: isScrollbarHovered ? '9px' : '4px',
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}
+            onMouseDown={handleScrollbarThumbMouseDown}
           />
         </div>
       </div>

@@ -21,7 +21,7 @@ export default function Services() {
   if (!services) return null;
 
   return (
-    <section className="relative bg-white text-[#071234] py-28 px-6 md:px-16 lg:px-24 overflow-hidden">
+    <section className="relative bg-white text-[#071234] py-10 px-6 md:px-16 lg:px-24 overflow-hidden">
       {/* Top Row — Left scroll text + Right sub description */}
       <div className="w-full mb-12 relative">
         {/* Left Scrolling Text */}
@@ -44,7 +44,7 @@ export default function Services() {
             </h2>
           </div>
 
-          {/* Right Description (aligned vertically with title) */}
+          {/* Right Description (aligned vertically with title) - impDiff */}
           <p className="flex-shrink-0" style={{
             color: '#000',
             textAlign: 'right',
@@ -52,8 +52,10 @@ export default function Services() {
             fontSize: '22px',
             fontStyle: 'normal',
             fontWeight: '300',
-            lineHeight: 'normal',
-            width: '400px'
+            lineHeight: '1.5',
+            width: '530px',
+            wordWrap: 'break-word',
+            whiteSpace: 'normal'
           }}>
             {services.description}
           </p>
@@ -61,7 +63,7 @@ export default function Services() {
       </div>
 
       {/* Portfolio Gallery */}
-      <div className="mt-16" style={{ marginBottom: '151px' }}>
+      <div className="mt-16" style={{ marginTop: '90px', marginBottom: '151px' }}>
         <PortfolioGallery items={services.cards || []} />
       </div>
 
