@@ -187,7 +187,7 @@ export default function Testimonials() {
         <div className="h-1 bg-gradient-to-r from-[#0DBCC1] to-transparent opacity-80" />
       </section>
 
-      <section className="py-16 px-6 md:px-16 lg:px-24 relative" ref={textRevealRef}>
+      <section className="px-6 md:px-16 lg:px-24 relative" ref={textRevealRef} style={{ paddingTop: 'calc(64px + 10px)', paddingBottom: 'calc(64px + 10px)' }}>
         {/* Scrolling "Team of Developers" text */}
         <div className="flex justify-center" style={{ marginBottom: '45px' }}>
           <div className="relative w-[220px] overflow-hidden">
@@ -205,7 +205,8 @@ export default function Testimonials() {
           fontSize: '48px',
           fontStyle: 'normal',
           fontWeight: '600',
-          lineHeight: 'normal'
+          lineHeight: 'normal',
+          paddingBottom: '70px'
         }}>
             {/* Word-by-word reveal based on scroll */}
             <p>

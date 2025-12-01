@@ -180,12 +180,17 @@ export default function PortfolioGallery({ items }) {
                 <p style={{
                   color: '#000',
                   fontFamily: '"SF Pro Light", -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '18px',
+                  fontSize: '16px',
                   fontStyle: 'normal',
                   fontWeight: '300',
-                  lineHeight: 'normal'
+                  lineHeight: '1.4',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
                 }}>
-                  From concept to creation, we help you build experiences that define the future of digital innovation.
+                  {item.description || 'From concept to creation, we help you build experiences that define the future of digital innovation.'}
                 </p>
               </div>
             </div>

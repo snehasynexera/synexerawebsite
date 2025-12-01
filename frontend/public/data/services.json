@@ -6,27 +6,43 @@
   "cards": [
     {
       "title": "Mobile App Development",
-      "image": "/images/Mobile.png"
+      "description": "Native and cross-platform mobile apps for iOS and Android. We deliver engaging, high-performance applications.",
+      "image": "/images/Mobile%20app.png"
     },
     {
       "title": "Web App Development",
-      "image": "/images/Mobile.png"
+      "description": "Responsive, scalable web applications using modern frameworks. High-performance solutions across all devices.",
+      "image": "/images/web%20app.png"
     },
     {
       "title": "Content Writing",
-      "image": "/images/Mobile.png"
+      "description": "Professional content creation tailored to your brand voice. Engaging copy that resonates with your audience and drives results.",
+      "image": "/images/content%20writing.png"
     },
     {
       "title": "Data Entry",
-      "image": "/images/Mobile.png"
+      "description": "Accurate and efficient data entry services. Organized, verified information that keeps your business running smoothly.",
+      "image": "/images/data%20entry.png"
     },
     {
-      "title": "Data Entry",
-      "image": "/images/Mobile.png"
+      "title": "Workflow Automation",
+      "description": "Intelligent automation to streamline business processes. Eliminate manual tasks and improve operational efficiency.",
+      "image": "/images/workflow.png"
     },
     {
-      "title": "Data Entry",
-      "image": "/images/Mobile.png"
+      "title": "DevOps Solutions",
+      "description": "CI/CD pipelines, infrastructure automation, and cloud management. Accelerate deployments and improve reliability.",
+      "image": "/images/Devops.png"
+    },
+    {
+      "title": "AI & Machine Learning",
+      "description": "Intelligent systems that learn and adapt to unlock insights. Make smarter, data-driven decisions.",
+      "image": "/images/Ai.png"
+    },
+    {
+      "title": "Cloud Infrastructure",
+      "description": "Seamless migration and management on leading cloud platforms. Scalable, secure, and cost-efficient.",
+      "image": "/images/cloud%20infra.png"
     }
   ]
 }

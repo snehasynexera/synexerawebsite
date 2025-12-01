@@ -98,11 +98,49 @@ export default function Projects() {
   const imageLeft = chapter.imagePosition === "left";
 
   return (
-    <div className="w-full flex flex-col items-center gap-8 pb-16">
+    <div className="w-full flex flex-col items-center gap-16 pb-16">
 
-      <h2 className="text-4xl font-bold text-black py-10 tracking-wide">
-        {projects[projectIndex].projectName}
-      </h2>
+      <div className="w-full mb-20 relative px-6 md:px-16 lg:px-24">
+        {/* Scrolling Text */}
+        <div className="relative w-[200px] overflow-hidden mb-4">
+          <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
+            <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
+            <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
+          </div>
+        </div>
+
+        {/* Heading with "Growth" highlighted */}
+        <div className="flex items-center justify-between">
+          <h2
+            style={{
+              fontSize: '48px',
+              fontWeight: 700,
+              fontFamily: 'Syne',
+              color: '#000',
+              lineHeight: 'normal'
+            }}
+          >
+            Recent projects that
+            <br />
+            highlight our{' '}
+            <span
+              style={{
+                color: '#0DBCC1',
+                textDecoration: 'underline',
+                textDecorationThickness: 'auto',
+                textUnderlineOffset: 'auto',
+                textDecorationLine: 'underline'
+              }}
+            >
+              Growth
+            </span>
+          </h2>
+          <button className="border-2 border-black text-black px-8 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-all"
+            style={{ whiteSpace: 'nowrap' }}>
+            View all Projects ≫
+          </button>
+        </div>
+      </div>
 
       <div className="book-container">
 
