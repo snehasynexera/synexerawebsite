@@ -117,16 +117,6 @@ const iconMap = {
             </li>
 
             {/* Portfolio → open website */}
-            <li>
-              <a
-                href={footer.contact.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white cursor-pointer"
-              >
-                {footer.contact.portfolio}
-              </a>
-            </li>
 
           </ul>
         </div>
