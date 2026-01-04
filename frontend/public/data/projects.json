@@ -7,21 +7,21 @@
         "category": "Brand ✦ Website",
         "title": "Overview",
         "desc": "A visual-first platform to showcase services and case studies.",
-        "image": "/case/1-overview.jpg",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       },
       {
         "category": "Brand ✦ Website",
         "title": "Approach",
         "desc": "Focused on clarity, high-performance, and simple navigation.",
-        "image": "/case/1-approach.jpg",
+        "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       },
       {
         "category": "Brand ✦ Website",
         "title": "Impact",
         "desc": "Delivered performance boosts & higher engagement.",
-        "image": "/case/1-impact.jpg",
+        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       }
     ]
@@ -35,28 +35,28 @@
         "category": "UX ✦ Web App",
         "title": "Overview",
         "desc": "A real-time dashboard for financial monitoring.",
-        "image": "/case/2-overview.jpg",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       },
       {
         "category": "UX ✦ Web App",
         "title": "Research",
         "desc": "User interviews revealed issues with clarity & overload.",
-        "image": "/case/2-research.jpg",
+        "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       },
       {
         "category": "UX ✦ Web App",
         "title": "Solution",
         "desc": "Introduced smart grouping & color-driven insights.",
-        "image": "/case/2-solution.jpg",
+        "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       },
       {
         "category": "UX ✦ Web App",
         "title": "Outcome",
         "desc": "Users completed tasks 40% faster than before.",
-        "image": "/case/2-outcome.jpg",
+        "image": "https://images.unsplash.com/photo-1590402494587-44b71d7772f6?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       }
     ]
@@ -70,22 +70,92 @@
         "category": "UI ✦ UX ✦ Website",
         "title": "Overview",
         "desc": "A mobile-first redesign of a fashion e-commerce store.",
-        "image": "/case/3-overview.jpg",
+        "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       },
       {
         "category": "UI ✦ UX ✦ Website",
         "title": "Strategy",
         "desc": "Improved onboarding, checkout flow, and product filters.",
-        "image": "/case/3-strategy.jpg",
+        "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       },
       {
         "category": "UI ✦ UX ✦ Website",
         "title": "Results",
         "desc": "Bounce rate dropped, and conversions increased 28%.",
-        "image": "/case/3-results.jpg",
+        "image": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800&h=1000&fit=crop",
         "imagePosition": "left"
+      }
+    ]
+  },
+
+  {
+    "projectId": 4,
+    "projectName": "Mobile Gaming App",
+    "chapters": [
+      {
+        "category": "Mobile ✦ Gaming",
+        "title": "Overview",
+        "desc": "A multiplayer gaming experience for mobile devices.",
+        "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=1000&fit=crop",
+        "imagePosition": "right"
+      }
+    ]
+  },
+
+  {
+    "projectId": 5,
+    "projectName": "AI Platform",
+    "chapters": [
+      {
+        "category": "AI ✦ Machine Learning",
+        "title": "Overview",
+        "desc": "An intelligent platform powered by advanced AI algorithms.",
+        "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=1000&fit=crop",
+        "imagePosition": "left"
+      }
+    ]
+  },
+
+  {
+    "projectId": 6,
+    "projectName": "Healthcare Portal",
+    "chapters": [
+      {
+        "category": "Healthcare ✦ Web",
+        "title": "Overview",
+        "desc": "A patient-centric healthcare management system.",
+        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=1000&fit=crop",
+        "imagePosition": "right"
+      }
+    ]
+  },
+
+  {
+    "projectId": 7,
+    "projectName": "Social Media Platform",
+    "chapters": [
+      {
+        "category": "Social ✦ Web App",
+        "title": "Overview",
+        "desc": "A next-generation social networking platform.",
+        "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=1000&fit=crop",
+        "imagePosition": "left"
+      }
+    ]
+  },
+
+  {
+    "projectId": 8,
+    "projectName": "VR Experience",
+    "chapters": [
+      {
+        "category": "VR ✦ Gaming",
+        "title": "Overview",
+        "desc": "An immersive virtual reality experience.",
+        "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=1000&fit=crop",
+        "imagePosition": "right"
       }
     ]
   }
