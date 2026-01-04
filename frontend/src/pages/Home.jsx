@@ -19,6 +19,7 @@ const StopwatchPulse = ({ className }) => (
 import Services from "./Services";
 import Testimonials from "./Testimonials";
 import Projects from "./Projects";
+import Contact from "./Contact";
 import Footer from "./Footer";
 
 export default function Home() {
@@ -149,6 +150,11 @@ export default function Home() {
       {/* Projects Section */}
       <section id="projects">
         <Projects />
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact">
+        <Contact />
       </section>
 
       {/* About Section */}

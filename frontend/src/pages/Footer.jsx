@@ -26,136 +26,137 @@ const Footer = () => {
     fetchFooter();
   }, []);
 
-  if (!footer) return null; // Loading fallback
+  if (!footer) return null;
 
   // ICON MAP
-const iconMap = {
-  facebook: <Facebook className="hover:text-white cursor-pointer" size={20}/>,
-  instagram: <Instagram className="hover:text-white cursor-pointer" size={20}/>,
-  whatsapp: <MessageCircle className="hover:text-white cursor-pointer" size={20}/>,
-  linkedin: <Linkedin className="hover:text-white cursor-pointer" size={20}/>
-};
+  const iconMap = {
+    facebook: <Facebook className="hover:text-[#0DBCC1] transition-colors cursor-pointer" size={20}/>,
+    instagram: <Instagram className="hover:text-[#0DBCC1] transition-colors cursor-pointer" size={20}/>,
+    whatsapp: <MessageCircle className="hover:text-[#0DBCC1] transition-colors cursor-pointer" size={20}/>,
+    linkedin: <Linkedin className="hover:text-[#0DBCC1] transition-colors cursor-pointer" size={20}/>
+  };
 
   return (
-    <footer className="bg-gradient-to-br from-[#070B55] to-[#000000] text-white py-12 px-6 md:px-20 rounded-t-2xl mt-10">
-      {/* Top Section */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4 md:mb-0">
-          {footer.title}
-        </h2>
-
-        <button className="flex items-center gap-2 bg-[#22F6F2] hover:bg-[#22F6F2] text-black font-medium px-6 py-3 rounded-full transition-all">
-          {footer.buttonText} <ChevronRight className="text-xl" />
-        </button>
+    <footer className="bg-white text-gray-900 relative overflow-hidden">
+      {/* Top CTA Section */}
+      <div className="border-b border-gray-200 py-12 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-black">
+            {footer.title}
+          </h2>
+          <button className="flex items-center gap-3 bg-[#0DBCC1] hover:bg-[#0aa5aa] text-white font-semibold px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#0DBCC1]/25">
+            {footer.buttonText}
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
-      <div className="border-t border-gray-600 pt-10 grid md:grid-cols-7 gap-6">
-        {/* Left Section */}
-        <div className="md:col-span-3">
-          <div className="flex items-center space-x-3 mb-4">
-            <img
-              src={footer.logo.src}
-              alt={footer.logo.text}
-              className="h-8 w-8 object-contain"
-            />
-            <h3 className="text-2xl font-bold text-[#22F6F2]">
-              {footer.logo.text}
-            </h3>
+      {/* Main Footer Content */}
+      <div className="px-6 md:px-20 py-16">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
+          {/* Company Info */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <img
+                src={footer.logo.src}
+                alt={footer.logo.text}
+                className="h-10 w-10 object-contain"
+              />
+              <h3 className="text-2xl font-bold text-[#0DBCC1]">
+                {footer.logo.text}
+              </h3>
+            </div>
+            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+              {footer.description}
+            </p>
+            <div className="flex gap-4 text-[#0DBCC1]">
+              {footer.socialLinks.map((item, i) => (
+                <div key={i} className="hover:scale-110 transition-transform">
+                  {iconMap[item.icon]}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <p className="text-gray-400 text-sm mb-6">{footer.description}</p>
-
-          <div className="flex space-x-4 text-[#22F6F2]">
-            {footer.socialLinks.map((item, i) => (
-              <span key={i}>{iconMap[item.icon]}</span>
-            ))}
+          {/* Navigation */}
+          <div>
+            <h4 className="text-lg font-semibold mb-6 text-black">
+              Navigation
+            </h4>
+            <ul className="space-y-3">
+              {footer.navigation.map((nav, i) => (
+                <li key={i}>
+                  <a
+                    href={`/#${nav.id}`}
+                    className="text-gray-600 hover:text-[#0DBCC1] transition-colors text-sm"
+                  >
+                    {nav.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
 
-        {/* Navigation */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4 text-[#22F6F2]">
-            Navigation
-          </h4>
-          <ul className="space-y-2 text-gray-300 text-sm">
-            {footer.navigation.map((nav, i) => (
-              <li key={i}>
+          {/* Contact */}
+          <div>
+            <h4 className="text-lg font-semibold mb-6 text-black">
+              Contact
+            </h4>
+            <ul className="space-y-3">
+              <li>
                 <a
-                  href={`/#${nav.id}`}
-                  className="hover:text-white cursor-pointer"
+                  href={`tel:${footer.contact.phone}`}
+                  className="text-gray-600 hover:text-[#0DBCC1] transition-colors text-sm"
                 >
-                  {nav.label}
+                  {footer.contact.phone}
                 </a>
               </li>
-            ))}
-          </ul>
-        </div>
+              <li>
+                <a
+                  href={`mailto:${footer.contact.email}`}
+                  className="text-gray-600 hover:text-[#0DBCC1] transition-colors text-sm"
+                >
+                  {footer.contact.email}
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        {/* Contact */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4 text-[#22F6F2]">Contact</h4>
-          <ul className="space-y-2 text-gray-300 text-sm">
-
-            {/* Phone → open call dialer */}
-            <li>
-              <a
-                href={`tel:${footer.contact.phone}`}
-                className="hover:text-white cursor-pointer"
-              >
-                {footer.contact.phone}
-              </a>
-            </li>
-
-            {/* Email → open Gmail compose */}
-            <li>
-              <a
-                href={`mailto:${footer.contact.email}`}
-                className="hover:text-white cursor-pointer"
-              >
-                {footer.contact.email}
-              </a>
-            </li>
-
-            {/* Portfolio → open website */}
-
-          </ul>
-        </div>
-
-
-        {/* Newsletter */}
-        <div className="md:col-span-2">
-          <h4 className="text-lg font-semibold mb-4 text-[#22F6F2]">
-            Get the latest information
-          </h4>
-
-          <div className="flex items-center bg-white rounded-full overflow-hidden">
-            <input
-              type="email"
-              placeholder={footer.newsletter.placeholder}
-              className="w-full px-4 py-3 text-gray-700 outline-none rounded-l-full"
-            />
-            <button className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-4 py-2 flex items-center justify-center rounded-r-full transition-all">
-              <Send size={32} />
-            </button>
+          {/* Newsletter */}
+          <div>
+            <h4 className="text-lg font-semibold mb-6 text-black">
+              Get the latest information
+            </h4>
+            <div className="flex items-center bg-gray-100 rounded-full overflow-hidden shadow-lg border border-gray-200">
+              <input
+                type="email"
+                placeholder={footer.newsletter.placeholder}
+                className="flex-1 px-5 py-3 text-gray-700 text-sm outline-none bg-gray-100"
+              />
+              <button className="bg-[#0DBCC1] hover:bg-[#0aa5aa] text-white p-3 transition-colors flex items-center justify-center">
+                <Send size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Section */}
-      <div className="border-t border-gray-600 mt-10 pt-6 flex flex-col md:flex-row justify-between text-gray-400 text-sm">
-        <p>
-          Copyright © {new Date().getFullYear()} {footer.logo.text}. All Rights
-          Reserved.
-        </p>
-
-        <div className="flex items-center space-x-2 mt-2 md:mt-0">
-          <a href="#" className="hover:text-white">
-            {footer.bottomLinks.terms}
-          </a>
-          <span>|</span>
-          <a href="#" className="hover:text-white">
-            {footer.bottomLinks.privacy}
-          </a>
+      {/* Bottom Copyright Section */}
+      <div className="border-t border-gray-200 px-6 md:px-20 py-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
+          <p>
+            Copyright © {new Date().getFullYear()} {footer.logo.text}. All Rights Reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-[#0DBCC1] transition-colors">
+              {footer.bottomLinks.terms}
+            </a>
+            <span className="text-gray-400">|</span>
+            <a href="#" className="hover:text-[#0DBCC1] transition-colors">
+              {footer.bottomLinks.privacy}
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -163,28 +164,3 @@ const iconMap = {
 };
 
 export default Footer;
-
-
-
-
-
-
-
-// // src/pages/Home.jsx
-// import { useEffect, useState } from "react";
-// import { getHomeData } from "../api";
-// import { Sparkle, HeartPulse, ChevronsRight } from "lucide-react";
-// import Services from "./Services";
-// import Testimonials from "./Testimonials";
-// import Projects from "./Projects";
-
-// export default function Footer() {
-
-//   return (
-//     <main className="min-h-screen bg-white text-[#071234] w-full overflow-x-hidden relative">
-
-  
-//     </main>
-//   );
-// }
-

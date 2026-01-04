@@ -1,10 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { getTestimonialsData } from "../api"; // make sure api exposes getTestimonialsData using BASE_URL pattern
-import { User, Star, Sparkle } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { getTestimonialsData } from "../api";
+import { User, Sparkle } from "lucide-react";
 
 export default function Testimonials() {
   const [data, setData] = useState(null);
@@ -32,19 +28,14 @@ export default function Testimonials() {
       const rect = element.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Calculate how far through the element we've scrolled
-      // Start revealing when element enters viewport, complete when it's about to leave
       const elementTop = rect.top;
       const elementHeight = rect.height;
 
-      // Start point: when element top reaches bottom of viewport
-      // End point: when element top reaches top of viewport
       const startPoint = windowHeight;
       const endPoint = -elementHeight;
       const totalDistance = startPoint - endPoint;
       const currentPosition = startPoint - elementTop;
 
-      // Calculate percentage (0 to 100)
       let percent = (currentPosition / totalDistance) * 100;
       percent = Math.max(0, Math.min(100, percent));
 
@@ -52,7 +43,7 @@ export default function Testimonials() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [data]);
@@ -61,132 +52,113 @@ export default function Testimonials() {
 
   return (
     <>
-        {/* header row - left small scrolling text + title */}
-        <section className="relative bg-white text-[#071234] px-6 md:px-16 lg:px-24 overflow-hidden" style={{ paddingTop: '0px', paddingBottom: '48px' }}>
-          <div className="w-full mb-8 relative">
-            {/* Left Scrolling Text */}
-            <div className="relative w-[180px] overflow-hidden mb-4">
-              <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
-                <span className="flex gap-2 items-center">{data.leftText || "Core Testimonials"} <Sparkle className="text-black w-5 h-5" /></span>
-                <span className="flex gap-2 items-center">{data.leftText || "Core Testimonials"} <Sparkle className="text-black w-5 h-5" /></span>
-              </div>
-            </div>
-
-            {/* Flex container for title and description alignment */}
-            <div className="flex items-center justify-between w-full">
-              {/* Left Description */}
-              <div style={{ lineHeight: '1.1' }}>
-                <div className="flex items-baseline flex-wrap gap-3">
-                  <h2 className="font-bold text-[48px]" style={{ fontFamily: 'Syne' }}>
-                    {data.title}
-                  </h2>
-                  <h2 className="font-bold text-[48px] text-[#0DBCC1] underline decoration-4 underline-offset-4" style={{ fontFamily: 'Syne' }}>
-                    {data.highlight}
-                  </h2>
-                </div>
-                {data.ending && <h2 className="font-bold text-[48px]" style={{ fontFamily: 'Syne' }}>{data.ending}</h2>}
-              </div>
-
-              {/* Right Description (aligned vertically with title) */}
-              <p className="flex-shrink-0" style={{
-                color: '#000',
-                textAlign: 'right',
-                fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif',
-                fontSize: '22px',
-                fontStyle: 'normal',
-                fontWeight: '300',
-                lineHeight: 'normal',
-                width: '400px'
-              }}>
-                {data.description}
-              </p>
+      {/* Section Header - "Our Reviews" and "Why people value Us" */}
+      <section className="relative bg-white text-black px-6 md:px-16 lg:px-24 py-12">
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
+          {/* Scrolling Text */}
+          <div className="relative w-[180px] overflow-hidden mb-4">
+            <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4">
+              <span className="flex gap-2 items-center justify-center">Our Reviews <span className="text-[#0DBCC1]">✦</span></span>
+              <span className="flex gap-2 items-center justify-center">Our Reviews <span className="text-[#0DBCC1]">✦</span></span>
             </div>
           </div>
-        </section>
 
-      {/* Testimonial band */}
-      <section
-        id="testimonials"
-        className="relative w-full overflow-hidden"
-        style={{
-          background: `linear-gradient(90deg, ${data.gradient.from}, ${data.gradient.to})`,
-          paddingBottom: '0px'
-        }}
-      >
-        <div className="max-w-7xl mx-auto py-8 px-4 md:px-6 lg:px-12">
+          {/* Main Heading */}
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: 700,
+            fontFamily: 'Syne, sans-serif',
+            color: '#000',
+            lineHeight: 'normal'
+          }}>
+            Why people{' '}
+            <span style={{
+              color: '#0DBCC1',
+              textDecoration: 'underline',
+              textDecorationThickness: 'auto',
+              textUnderlineOffset: 'auto'
+            }}>
+              value
+            </span>
+            {' '}us
+          </h2>
+        </div>
+      </section>
 
+      {/* Testimonials Section - Light Theme */}
+      <section className="relative bg-white text-black px-6 md:px-16 lg:px-24 py-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Side - Title and Description */}
+            <div>
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight" style={{ fontFamily: 'Syne, sans-serif', color: '#070B55' }}>
+                What Our <br />
+                Customers Says
+              </h2>
+              
+              <p className="text-gray-700 text-lg mb-8 leading-relaxed">
+                {data.description || "Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common."}
+              </p>
 
-          {/* Swiper testimonial slides — large single-card feel like your design */}
-          <div className="relative">
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              slidesPerView={1}
-              spaceBetween={40}
-              autoplay={{ delay: 4500, disableOnInteraction: false }}
-              pagination={{ clickable: true }}
-              loop
-            >
-              {data.testimonials.map((t, i) => (
-                <SwiperSlide key={i}>
-                  <div className="relative flex items-start gap-10">
-                    {/* Left large card (quote) */}
-                    <div className="w-full md:w-3/4 lg:w-2/3">
-                      <div className="relative rounded-[24px] p-10 md:p-14 shadow-2xl overflow-visible">
-                        {/* subtle triple-layer background (depth) */}
-                        <div className="absolute -bottom-8 -left-6 w-[60%] h-28 rounded-[20px] bg-white/4 blur-md transform -rotate-2 pointer-events-none" />
-                        <div className="absolute -bottom-6 -left-2 w-[68%] h-24 rounded-[20px] bg-white/6 blur-sm transform rotate-1 pointer-events-none" />
+              <button 
+                className="px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105 active:scale-95 shadow-lg hover:bg-[#0a1066]"
+                style={{
+                  background: "#070B55",
+                }}
+              >
+                View More
+              </button>
+            </div>
 
-                        {/* Quote text */}
-                        <p className="text-white text-lg md:text-xl leading-relaxed mb-8">
-                          {t.message}
-                        </p>
+            {/* Right Side - Testimonial Cards */}
+            <div className="space-y-6">
+              {data.testimonials.slice(0, 3).map((testimonial, index) => (
+                <div 
+                  key={index}
+                  className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                  style={{
+                    borderLeft: index === 1 ? '4px solid #0DBCC1' : 'none'
+                  }}
+                >
+                  {/* Quote Icon */}
+                  <div className="absolute top-4 right-4 text-gray-300">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                    </svg>
+                  </div>
 
-                        {/* Avatar + name */}
-                        <div className="flex items-center gap-4 mt-6">
-                          <div className="w-16 h-16 rounded-full bg-[#0DBCC1] flex items-center justify-center ring-4 ring-black/30 overflow-hidden">
-                            {t.avatar ? (
-                              <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
-                            ) : (
-                              <User className="w-8 h-8 text-white" />
-                            )}
-                          </div>
-
-                          <div>
-                            <div className="text-white font-semibold text-lg">{t.name}</div>
-                            <div className="text-white/60 text-sm">{t.role}</div>
-                          </div>
-                        </div>
-
-                        {/* pagination placeholder — visible but Swiper also shows bullets */}
-                        {/* <div className="mt-8">
-                          <div className="inline-block w-14 h-4 bg-white/20 rounded-full mr-4" />
-                          <div className="inline-block w-3 h-3 bg-white/40 rounded-full mr-2" />
-                          <div className="inline-block w-3 h-3 bg-white/40 rounded-full mr-2" />
-                          <div className="inline-block w-3 h-3 bg-white/40 rounded-full" />
-                        </div> */}
-                        <div className="mt-8 flex gap-2">
-                            <Star color="yellow" fill="yellow"/>
-                            <Star color="yellow" fill="yellow"/>
-                            <Star color="yellow" fill="yellow"/>
-                            <Star color="yellow" fill="yellow"/>
-                        </div>
-
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center">
+                        {testimonial.avatar ? (
+                          <img src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <User className="w-6 h-6 text-white" />
+                        )}
                       </div>
                     </div>
 
-                    {/* Right: (optionally) a large empty area — in your screenshot it's open space */}
-                    <div className="hidden lg:block lg:w-1/3" />
+                    {/* Content */}
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-lg text-black mb-1">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-gray-700 text-sm leading-relaxed">
+                        {testimonial.message}
+                      </p>
+                    </div>
                   </div>
-                </SwiperSlide>
+                </div>
               ))}
-            </Swiper>
+            </div>
+
           </div>
         </div>
-
-        {/* thin visible bottom line under testimonial band */}
-        <div className="h-1 bg-gradient-to-r from-[#0DBCC1] to-transparent opacity-80" />
       </section>
 
+      {/* Team of Developers Section */}
       <section className="px-6 md:px-16 lg:px-24 relative" ref={textRevealRef} style={{ paddingTop: 'calc(64px + 10px)', paddingBottom: 'calc(64px + 10px)' }}>
         {/* Scrolling "Team of Developers" text */}
         <div className="flex justify-center" style={{ marginBottom: '45px' }}>
@@ -212,10 +184,8 @@ export default function Testimonials() {
             <p>
               {data.belowHeroLine.split(' ').map((word, index, arr) => {
                 const totalWords = arr.length;
-                // Calculate threshold for this word (when it should be revealed)
                 const wordThreshold = (index / totalWords) * 100;
                 const isRevealed = revealPercent > wordThreshold;
-                // Check if this is the "current" word (cursor position)
                 const nextThreshold = ((index + 1) / totalWords) * 100;
                 const isCurrent = revealPercent > wordThreshold && revealPercent <= nextThreshold;
 
@@ -229,7 +199,6 @@ export default function Testimonials() {
                     >
                       {word}
                     </span>
-                    {/* Red cursor after current word */}
                     {isCurrent && (
                       <span style={{
                         color: '#F00',
@@ -244,7 +213,6 @@ export default function Testimonials() {
                   </span>
                 );
               })}
-              {/* Show cursor at end when fully revealed */}
               {revealPercent >= 100 && (
                 <span style={{
                   color: '#F00',

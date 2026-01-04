@@ -63,47 +63,32 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [links]);
 
-  // ✅ Detect when navbar is over dark banners (testimonials, sections, or footers with dark backgrounds)
+  // ✅ Detect when navbar is over dark banners (sections or footers with dark backgrounds)
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       let isOverBanner = false;
 
-      // Check testimonials section specifically (has gradient background)
-      const testimonialSection = document.getElementById("testimonials");
-      if (testimonialSection) {
-        const testimonialTop = testimonialSection.offsetTop;
-        const testimonialHeight = testimonialSection.offsetHeight;
-        const testimonialBottom = testimonialTop + testimonialHeight;
-
-        if (scrollY >= testimonialTop && scrollY < testimonialBottom) {
-          isOverBanner = true;
-        }
-      }
-
       // Check for dark background sections and footers
-      if (!isOverBanner) {
-        // Check both sections and footers
-        const darkElements = document.querySelectorAll('section, footer');
-        for (let element of darkElements) {
-          const computedStyle = window.getComputedStyle(element);
-          const bgColor = computedStyle.backgroundColor;
-          const bgImage = computedStyle.backgroundImage;
+      const darkElements = document.querySelectorAll('section, footer');
+      for (let element of darkElements) {
+        const computedStyle = window.getComputedStyle(element);
+        const bgColor = computedStyle.backgroundColor;
+        const bgImage = computedStyle.backgroundImage;
 
-          // Check if element has dark navy background (rgb(7, 11, 85)) or dark gradient
-          const isDarkNavy = bgColor && bgColor.includes('rgb(7, 11, 85)');
-          const isDarkGradient = bgImage && (bgImage.includes('gradient') &&
-                                (bgImage.includes('7, 11, 85') || bgImage.includes('070B55') || bgImage.includes('0, 0, 0')));
+        // Check if element has dark navy background (rgb(7, 11, 85)) or dark gradient
+        const isDarkNavy = bgColor && bgColor.includes('rgb(7, 11, 85)');
+        const isDarkGradient = bgImage && (bgImage.includes('gradient') &&
+                              (bgImage.includes('7, 11, 85') || bgImage.includes('070B55') || bgImage.includes('0, 0, 0')));
 
-          if (isDarkNavy || isDarkGradient) {
-            const elementTop = element.offsetTop;
-            const elementHeight = element.offsetHeight;
-            const elementBottom = elementTop + elementHeight;
+        if (isDarkNavy || isDarkGradient) {
+          const elementTop = element.offsetTop;
+          const elementHeight = element.offsetHeight;
+          const elementBottom = elementTop + elementHeight;
 
-            if (scrollY >= elementTop && scrollY < elementBottom) {
-              isOverBanner = true;
-              break;
-            }
+          if (scrollY >= elementTop && scrollY < elementBottom) {
+            isOverBanner = true;
+            break;
           }
         }
       }
@@ -148,7 +133,7 @@ export default function Navbar() {
 
           {/* Contact Us Button */}
           <button
-            onClick={() => handleScroll("Contact Us")}
+            onClick={() => handleScroll("contact")}
             className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${
               isOverDarkBanner
                 ? "border-white text-white hover:bg-white hover:text-[#070B55]"

@@ -1,15 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getCaseStudiesData } from "../api";
+import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [projectIndex, setProjectIndex] = useState(0);
-  const [chapterIndex, setChapterIndex] = useState(0);
-  const [prevChapterData, setPrevChapterData] = useState(null);
-  const [isFlipping, setIsFlipping] = useState(false);
-
-  const autoRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const autoScrollRef = useRef(null);
 
   // Load JSON
   useEffect(() => {
@@ -17,6 +14,9 @@ export default function Projects() {
       try {
         const data = await getCaseStudiesData();
         setProjects(data);
+        if (data.length > 0) {
+          setCurrentIndex(data.length); // Start at beginning of middle array
+        }
       } catch (err) {
         console.error(err);
       }
@@ -24,86 +24,93 @@ export default function Projects() {
     load();
   }, []);
 
-  // autoplay
+  // Handle infinite loop - reset position when reaching boundaries
   useEffect(() => {
-    startAutoPlay();
-    return () => clearTimeout(autoRef.current);
-  }, [projectIndex, chapterIndex]);
-
-  const startAutoPlay = () => {
-    clearTimeout(autoRef.current);
-    autoRef.current = setTimeout(() => nextChapter(), 7000);
-  };
-
-  const nextProject = () => {
-    setChapterIndex(0);
-    setProjectIndex((p) => (p + 1) % projects.length);
-  };
-
-  const prevProject = () => {
-    setChapterIndex(0);
-    setProjectIndex((p) => (p - 1 + projects.length) % projects.length);
-  };
-
-  const nextChapter = () => {
-    const p = projects[projectIndex];
-    if (!p) return;
-
-    if (chapterIndex < p.chapters.length - 1) {
-      triggerFlip(chapterIndex + 1);
-    } else {
-      triggerFlip(0, true);
+    if (projects.length === 0) return;
+    
+    const maxIndex = projects.length * 2; // End of middle array
+    const minIndex = projects.length; // Start of middle array
+    
+    // If we've scrolled past the end of the middle array, snap back to start of middle array
+    if (currentIndex >= maxIndex) {
+      setTimeout(() => {
+        setCurrentIndex(projects.length);
+      }, 600); // Wait for transition to complete
     }
-  };
-
-  const goPrevChapter = () => {
-    if (chapterIndex > 0) {
-      triggerFlip(chapterIndex - 1);
-    } else {
-      triggerFlip(0, true, true);
+    // If we've scrolled before the start of middle array, snap to end of middle array
+    else if (currentIndex < minIndex) {
+      setTimeout(() => {
+        setCurrentIndex(projects.length * 2 - 1);
+      }, 600);
     }
-  };
+  }, [currentIndex, projects.length]);
 
-  const triggerFlip = (newIndex, projectChange = false, backwards = false) => {
-    if (!projects.length) return;
+  // Auto-scroll every 4 seconds
+  useEffect(() => {
+    if (projects.length === 0) return;
+    
+    autoScrollRef.current = setInterval(() => {
+      setCurrentIndex((prev) => prev + 1);
+    }, 4000);
 
-    // 1️⃣ Store old chapter (A) for the flipping page
-    const oldChapter = projects[projectIndex].chapters[chapterIndex];
-    setPrevChapterData(oldChapter);
-
-    // 2️⃣ Update to new chapter (B) BEFORE animation starts
-    if (projectChange && !backwards) {
-        setChapterIndex(0);
-        setProjectIndex((p) => (p + 1) % projects.length);
-    } else if (projectChange && backwards) {
-        setChapterIndex(0);
-        setProjectIndex((p) => (p - 1 + projects.length) % projects.length);
-    } else {
-        setChapterIndex(newIndex);
-    }
-
-    // 3️⃣ Begin flip animation showing old chapter (A)
-    setIsFlipping(true);
-
-    // 4️⃣ End animation — do nothing else
-    setTimeout(() => {
-        setIsFlipping(false);
-    }, 650);
+    return () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
     };
+  }, [projects.length, currentIndex]);
 
+  // Create a longer array for seamless scrolling
+  const extendedProjects = projects.length > 0 
+    ? [...projects, ...projects, ...projects] 
+    : [];
 
-  if (!projects.length) return null;
+  const handleNext = () => {
+    if (projects.length > 0) {
+      setCurrentIndex((prev) => prev + 1);
+      resetAutoScroll();
+    }
+  };
 
-  const chapter = projects[projectIndex].chapters[chapterIndex];
-  const imageLeft = chapter.imagePosition === "left";
+  const handlePrev = () => {
+    if (projects.length > 0) {
+      setCurrentIndex((prev) => prev - 1);
+      resetAutoScroll();
+    }
+  };
+
+  const goToSlide = (index) => {
+    const actualIndex = index + projects.length; // Adjust to middle array
+    setCurrentIndex(actualIndex);
+    resetAutoScroll();
+  };
+
+  const resetAutoScroll = () => {
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+    }
+    autoScrollRef.current = setInterval(() => {
+      handleNext();
+    }, 4000);
+  };
+
+  // Get the actual project index for the dots
+  const getActualIndex = () => {
+    if (projects.length === 0) return 0;
+    return ((currentIndex % projects.length) + projects.length) % projects.length;
+  };
 
   return (
-    <div className="w-full flex flex-col items-center gap-16 pb-16">
-
-      <div className="w-full mb-20 relative px-6 md:px-16 lg:px-24">
+    <section 
+      id="projects" 
+      className="w-full py-20 px-6 bg-white text-black overflow-hidden"
+      style={{ minHeight: '100vh' }}
+    >
+      {/* Header Section - Restored Original */}
+      <div className="w-full mb-20 px-6 md:px-16 lg:px-24">
         {/* Scrolling Text */}
         <div className="relative w-[200px] overflow-hidden mb-4">
-          <div className="animate-scrollText text-[15px] tracking-wide text-[#071234] whitespace-nowrap flex gap-4">
+          <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4">
             <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
             <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
           </div>
@@ -135,108 +142,138 @@ export default function Projects() {
               Growth
             </span>
           </h2>
-          <button className="border-2 border-black text-black px-8 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-all"
-            style={{ whiteSpace: 'nowrap' }}>
+          <button 
+            className="border-2 border-black text-black px-8 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-all"
+            style={{ whiteSpace: 'nowrap' }}
+          >
             View all Projects ≫
           </button>
         </div>
       </div>
 
-      <div className="book-container">
+      {/* 3D Carousel */}
+      <div 
+        className="relative w-full mt-20"
+        style={{ 
+          height: '600px',
+          perspective: '2000px',
+          perspectiveOrigin: 'center center'
+        }}
+      >
+        <div 
+          className="absolute inset-0 flex items-center justify-center overflow-hidden"
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          <div 
+            className="flex items-center"
+            style={{
+              transformStyle: 'preserve-3d',
+              transform: `translateX(calc(50% - ${currentIndex * 410}px))`,
+              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            {extendedProjects.map((project, index) => {
+              const centerOffset = index - currentIndex;
+              const distance = Math.abs(centerOffset);
+              const rotateY = centerOffset * 12;
+              const translateZ = -distance * 80;
+              const isHovered = hoveredCard === index;
+              const isCentered = centerOffset === 0;
+              
+              let scale = 0.7;
+              if (isCentered) {
+                scale = isHovered ? 1.08 : 1;
+              } else if (distance === 1) {
+                scale = 0.85;
+              } else if (distance === 2) {
+                scale = 0.75;
+              }
+              
+              const opacity = Math.max(0.3, 1 - distance * 0.15);
 
-        {/* STATIC PAGE */}
-        <div className="page-static flex">
-          {chapter.image && imageLeft && (
-            <img
-              src={chapter.image}
-              className="w-1/2 h-[380px] object-cover rounded-2xl shadow-lg"
-            />
-          )}
-
-          <div className="flex flex-col w-full">
-            <p className="text-sm text-[#22F6F2] uppercase">{chapter.category}</p>
-            <h3 className="text-3xl font-semibold text-[#071234] mt-2">
-              {chapter.title}
-            </h3>
-            <p className="mt-4 text-gray-700 text-lg">{chapter.desc}</p>
+              return (
+                <div
+                  key={`${project.projectId}-${index}`}
+                  className="flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl cursor-pointer mx-3"
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  style={{
+                    width: '380px',
+                    height: '480px',
+                    transformStyle: 'preserve-3d',
+                    transform: `rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`,
+                    opacity: opacity,
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                    background: `url(${project.chapters[0]?.image || '/placeholder.jpg'})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    border: isHovered && isCentered ? '3px solid #0DBCC1' : '2px solid rgba(255, 255, 255, 0.2)',
+                    boxShadow: isHovered && isCentered
+                      ? '0 35px 60px -12px rgba(13, 188, 193, 0.4)' 
+                      : '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                  }}
+                >
+                  <div className="w-full h-full bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end p-6">
+                    <div>
+                      <p className="text-xs text-gray-300 mb-2 uppercase tracking-wider">
+                        {project.chapters[0]?.category || 'Project'}
+                      </p>
+                      <h4 className="text-xl font-bold text-white">
+                        {project.projectName}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      </div>
 
-          {chapter.image && !imageLeft && (
-            <img
-              src={chapter.image}
-              className="w-1/2 h-[380px] object-cover rounded-2xl shadow-lg"
-            />
-          )}
-          
+      {/* Navigation Controls */}
+      <div className="flex items-center justify-center gap-6 mt-12">
+        {/* Previous Button */}
+        <button
+          onClick={handlePrev}
+          className="w-10 h-10 rounded-full border border-gray-300 hover:border-black flex items-center justify-center transition-colors"
+          aria-label="Previous project"
+        >
+          <ChevronLeft className="w-4 h-4 text-gray-600" />
+        </button>
+
+        {/* Dots Indicator */}
+        <div className="flex items-center gap-2">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className="focus:outline-none"
+              aria-label={`Go to project ${index + 1}`}
+            >
+              <div 
+                className={`rounded-full transition-all duration-300 ${
+                  index === getActualIndex() 
+                    ? 'w-2.5 h-2.5 bg-[#0DBCC1]' 
+                    : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            </button>
+          ))}
         </div>
 
-        {/* TURNING PAGE */}
-        {isFlipping && prevChapterData && (
-          <div className="page-turn flex">
-            {prevChapterData.image &&
-              prevChapterData.imagePosition === "left" && (
-                <img
-                  src={prevChapterData.image}
-                  className="w-1/2 h-[380px] object-cover rounded-2xl shadow-lg"
-                />
-              )}
-
-            <div className="flex flex-col w-full">
-              <p className="text-sm text-[#22F6F2] uppercase">
-                {prevChapterData.category}
-              </p>
-              <h3 className="text-3xl font-semibold text-[#071234] mt-2">
-                {prevChapterData.title}
-              </h3>
-              <p className="mt-4 text-gray-700 text-lg">
-                {prevChapterData.desc}
-              </p>
-            </div>
-
-            {prevChapterData.image &&
-              prevChapterData.imagePosition !== "left" && (
-                <img
-                  src={prevChapterData.image}
-                  className="w-1/2 h-[380px] object-cover rounded-2xl shadow-lg"
-                />
-              )}
-          </div>
-        )}
-
-        {/* BUTTONS */}
+        {/* Next Button */}
         <button
-          onClick={goPrevChapter}
-          className="absolute left-[-100px] top-1/2 -translate-y-1/2 
-            bg-[#071234] text-white p-3 rounded-full shadow-lg hover:bg-[#22F6F2] transition"
+          onClick={handleNext}
+          className="w-10 h-10 rounded-full border border-gray-300 hover:border-black flex items-center justify-center transition-colors"
+          aria-label="Next project"
         >
-          <ArrowLeft size={24} />
-        </button>
-
-        <button
-          onClick={nextChapter}
-          className="absolute right-[-100px] top-1/2 -translate-y-1/2 
-            bg-[#071234] text-white p-3 rounded-full shadow-lg hover:bg-[#22F6F2] transition"
-        >
-          <ArrowRight size={24} />
+          <ChevronRight className="w-4 h-4 text-gray-600" />
         </button>
       </div>
-
-      {/* DOTS */}
-      <div className="flex gap-3 mt-4">
-        {projects.map((_, idx) => (
-          <div
-            key={idx}
-            onClick={() => {
-              setChapterIndex(0);
-              setProjectIndex(idx);
-            }}
-            className={`
-              w-4 h-4 rounded-full cursor-pointer transition-all
-              ${idx === projectIndex ? "bg-[#22F6F2]" : "bg-[#071234]/40"}
-            `}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }
+
+
