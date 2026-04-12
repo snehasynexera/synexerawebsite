@@ -16,11 +16,13 @@ const StopwatchPulse = ({ className }) => (
     <path d="M6 14h3l1.5-3 2 6 1.5-3h4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 );
+
 import Services from "./Services";
 import Testimonials from "./Testimonials";
 import Projects from "./Projects";
 import Contact from "./Contact";
 import Footer from "./Footer";
+import ScratchPromoSection from "../components/ScratchPromoSection";
 
 export default function Home() {
   const [home, setHome] = useState({});
@@ -140,6 +142,11 @@ export default function Home() {
       {/* Services Section */}
       <section id="services">
         <Services />
+      </section>
+
+      {/* Scratch Promo Section */}
+      <section id="promo" className="mb-8 md:mb-10">
+        <ScratchPromoSection />
       </section>
 
       {/* Testimonials Section */}

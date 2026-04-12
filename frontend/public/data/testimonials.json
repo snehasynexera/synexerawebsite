@@ -11,23 +11,105 @@
   },
   "testimonials": [
     {
-      "message": "Working with Synexera transformed our entire product development process. Their strategic approach to UX and meticulous attention to detail gave us a competitive advantage in a crowded market. The team's professionalism and communication throughout the project were exceptional.",
-      "name": "Rajesh Patel",
-      "role": "CEO, TechVenture Solutions",
-      "avatar": null
+      "message": "Synexera rebuilt our website and booking flow in a practical way. Leads are better qualified now and the team was very responsive through every sprint.",
+      "name": "Aakash Verma",
+      "role": "Founder, Verma Logistics",
+      "avatar": "https://i.pravatar.cc/160?img=12"
     },
     {
-      "message": "Synexera delivered our e-commerce platform with remarkable quality and ahead of schedule. Their engineering excellence and innovative design solutions elevated our brand significantly. They truly understand what it takes to build products that scale.",
-      "name": "Sarah Mitchell",
-      "role": "Founder, Digital Commerce Co",
-      "avatar": null
+      "message": "What stood out for us was clarity. Timelines were realistic, updates were clear, and delivery quality stayed consistent from first draft to final launch.",
+      "name": "Neha Iyer",
+      "role": "Director, BloomCare Clinics",
+      "avatar": "https://i.pravatar.cc/160?img=47"
     },
     {
-      "message": "Outstanding team of professionals who genuinely care about their work. Synexera's clear communication, technical expertise, and ability to understand our vision resulted in a product that exceeded all our expectations. Highly recommend.",
-      "name": "Marcus Chen",
-      "role": "CTO, InnovateTech Labs",
-      "avatar": null
+      "message": "We came with a rough idea and they converted it into a polished product. Their design sense and engineering execution genuinely improved our market perception.",
+      "name": "Rohan Kulkarni",
+      "role": "Co-founder, SkillBridge Academy",
+      "avatar": "https://i.pravatar.cc/160?img=33"
     }
   ],
-  "belowHeroLine": "We’re a dedicated team of developers, designers, and strategists creating future-ready products, with our precise execution giving us a distinct advantage"
+  "belowHeroLine": "We are a dedicated team of developers, designers and strategists building future-ready products with reliable execution and thoughtful collaboration.",
+  "fullReviews": [
+    {
+      "name": "Aakash Verma",
+      "company": "Founder, Verma Logistics",
+      "rating": "4.9/5",
+      "avatar": "https://i.pravatar.cc/200?img=12",
+      "summary": "Synexera redesigned our logistics website and booking flow in a way our operations team could actually use from day one.",
+      "fullReview": "Synexera redesigned our logistics website and booking flow in a way our operations team could actually use from day one. They simplified key screens, reduced customer confusion, and helped us move to a cleaner lead management process. Weekly updates were disciplined and transparent."
+    },
+    {
+      "name": "Neha Iyer",
+      "company": "Director, BloomCare Clinics",
+      "rating": "4.8/5",
+      "avatar": "https://i.pravatar.cc/200?img=47",
+      "summary": "Their team handled both design and backend integration smoothly, and our appointment conversion improved noticeably after launch.",
+      "fullReview": "Their team handled both design and backend integration smoothly, and our appointment conversion improved noticeably after launch. What impressed me most was their attention to practical UX details for patients using mobile devices. They delivered clean work without unnecessary complexity."
+    },
+    {
+      "name": "Rohan Kulkarni",
+      "company": "Co-founder, SkillBridge Academy",
+      "rating": "4.9/5",
+      "avatar": "https://i.pravatar.cc/200?img=33",
+      "summary": "We approached Synexera with a broad concept and they transformed it into a product with clear user journeys and strong performance.",
+      "fullReview": "We approached Synexera with a broad concept and they transformed it into a product with clear user journeys and strong performance. Their team consistently explained trade-offs and made sensible recommendations. We now have a platform we can confidently scale."
+    },
+    {
+      "name": "Priyanka Nair",
+      "company": "Marketing Head, GreenNest Interiors",
+      "rating": "4.7/5",
+      "avatar": "https://i.pravatar.cc/200?img=5",
+      "summary": "The new website finally reflects our brand quality, and the speed improvements helped us retain more visitors from ad campaigns.",
+      "fullReview": "The new website finally reflects our brand quality, and the speed improvements helped us retain more visitors from ad campaigns. Synexera listened carefully during discovery and translated our feedback quickly into visible changes. Their process felt structured and dependable."
+    },
+    {
+      "name": "Karthik Reddy",
+      "company": "Operations Lead, AgroLink Supply",
+      "rating": "4.8/5",
+      "avatar": "https://i.pravatar.cc/200?img=15",
+      "summary": "From planning to deployment, their communication was crisp and deadlines were met without compromising quality.",
+      "fullReview": "From planning to deployment, their communication was crisp and deadlines were met without compromising quality. We especially appreciated their backend reliability work and the way they documented handover steps for our internal team."
+    },
+    {
+      "name": "Meera Joshi",
+      "company": "Founder, CraftKart Studio",
+      "rating": "4.9/5",
+      "avatar": "https://i.pravatar.cc/200?img=52",
+      "summary": "Our online store looks premium now, and checkout drop-offs reduced after the UX fixes Synexera suggested.",
+      "fullReview": "Our online store looks premium now, and checkout drop-offs reduced after the UX fixes Synexera suggested. They balanced aesthetics with usability really well. Even after launch, their support for final polish and QA was very proactive."
+    },
+    {
+      "name": "Arjun Malhotra",
+      "company": "CTO, NovaFleet Mobility",
+      "rating": "4.8/5",
+      "avatar": "https://i.pravatar.cc/200?img=21",
+      "summary": "The engineering quality was solid and code handover was clean, making it easy for our in-house team to continue development.",
+      "fullReview": "The engineering quality was solid and code handover was clean, making it easy for our in-house team to continue development. Their sprint discipline and issue tracking were excellent, and we saw measurable improvements in platform stability."
+    },
+    {
+      "name": "Sneha Bansal",
+      "company": "Product Manager, EduSprint",
+      "rating": "4.7/5",
+      "avatar": "https://i.pravatar.cc/200?img=32",
+      "summary": "Synexera helped us launch faster with thoughtful UI decisions and practical backend architecture.",
+      "fullReview": "Synexera helped us launch faster with thoughtful UI decisions and practical backend architecture. They were transparent about scope, offered realistic estimates, and consistently delivered against commitments. Working with them felt like having an extended product team."
+    },
+    {
+      "name": "Vivek Deshmukh",
+      "company": "Founder, RetailEdge Systems",
+      "rating": "4.9/5",
+      "avatar": "https://i.pravatar.cc/200?img=54",
+      "summary": "The team modernized our old interface and made onboarding far easier for new users.",
+      "fullReview": "The team modernized our old interface and made onboarding far easier for new users. We received positive feedback from customers within the first week after release. Their execution quality and ownership mindset stood out throughout the project."
+    },
+    {
+      "name": "Pooja Srivastava",
+      "company": "Director, Zenith Health Tech",
+      "rating": "4.8/5",
+      "avatar": "https://i.pravatar.cc/200?img=41",
+      "summary": "Their design and development teams worked in sync, which saved us time and avoided the usual back-and-forth delays.",
+      "fullReview": "Their design and development teams worked in sync, which saved us time and avoided the usual back-and-forth delays. We got a reliable product, clear documentation, and a smooth launch cycle. I would confidently work with Synexera again."
+    }
+  ]
 }

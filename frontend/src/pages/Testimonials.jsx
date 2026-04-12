@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { getTestimonialsData } from "../api";
 import { User, Sparkle } from "lucide-react";
 
 export default function Testimonials() {
   const [data, setData] = useState(null);
   const [revealPercent, setRevealPercent] = useState(0);
+  const [hoveredReviewIndex, setHoveredReviewIndex] = useState(null);
   const textRevealRef = useRef(null);
 
   useEffect(() => {
@@ -101,28 +103,46 @@ export default function Testimonials() {
                 {data.description || "Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common."}
               </p>
 
-              <button 
-                className="px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105 active:scale-95 shadow-lg hover:bg-[#0a1066]"
+              <Link
+                to="/fullReview"
+                className="inline-block px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105 active:scale-95 shadow-lg hover:bg-[#0a1066]"
                 style={{
                   background: "#070B55",
                 }}
               >
                 View More
-              </button>
+              </Link>
             </div>
 
             {/* Right Side - Testimonial Cards */}
             <div className="space-y-6">
-              {data.testimonials.slice(0, 3).map((testimonial, index) => (
+              {data.testimonials.slice(0, 3).map((testimonial, index) => {
+                const isActive =
+                  hoveredReviewIndex === index || (hoveredReviewIndex === null && index === 1);
+
+                return (
                 <div 
                   key={index}
-                  className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
-                  style={{
-                    borderLeft: index === 1 ? '4px solid #0DBCC1' : 'none'
-                  }}
+                  onMouseEnter={() => setHoveredReviewIndex(index)}
+                  onMouseLeave={() => setHoveredReviewIndex(null)}
+                  className={`group relative overflow-hidden bg-white rounded-2xl p-6 shadow-lg border transition-all duration-300 ${
+                    isActive
+                      ? "border-[#b7ecee] shadow-xl"
+                      : "border-gray-200 hover:shadow-xl hover:border-[#b7ecee]"
+                  }`}
                 >
+                  <span
+                    className={`absolute left-0 top-0 bottom-0 w-1 bg-[#0DBCC1] transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+
                   {/* Quote Icon */}
-                  <div className="absolute top-4 right-4 text-gray-300">
+                  <div
+                    className={`absolute top-4 right-4 transition-colors duration-300 ${
+                      isActive ? "text-[#0DBCC1]" : "text-gray-300 group-hover:text-[#0DBCC1]"
+                    }`}
+                  >
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                     </svg>
@@ -151,7 +171,8 @@ export default function Testimonials() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
           </div>
