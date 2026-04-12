@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Synexera Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo now runs as two apps:
+- `frontend/` (Vite + React)
+- `backend/` (Express + MongoDB)
 
-## Available Scripts
+## 1) Backend setup (MongoDB Atlas)
 
-In the project directory, you can run:
+1. Go to `backend/`.
+2. Copy `.env.example` to `.env`.
+3. Add your Atlas connection string in:
 
-### `npm start`
+`backend/.env` → `MONGODB_URI=...`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Example:
+```env
+PORT=5050
+FRONTEND_ORIGIN=http://localhost:5173
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/synexera?retryWrites=true&w=majority
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+MAIL_FROM=Synexera <your-email@gmail.com>
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 2) Start backend
 
-### `npm test`
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When it starts correctly, terminal prints:
+`your backend is up on http://localhost:5050`
 
-### `npm run build`
+## 3) Start frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Optional frontend env:
+`frontend/.env`
+```env
+VITE_API_BASE_URL=http://localhost:5050
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If not set, frontend defaults to `http://localhost:5050`.
 
-### `npm run eject`
+## Contact form integration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The contact form on the homepage now sends `fullName`, `email`, `subject`, and `message` to:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`POST /api/contact`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The backend validates and stores the submission in MongoDB collection:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`contactmessages`
 
-## Learn More
+## Footer email auto-reply (services + pricing)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The footer email field now calls:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`POST /api/newsletter/subscribe`
 
-### Code Splitting
+This endpoint stores subscriber email and sends an automatic pricing email using SMTP.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Subscriber collection: `newslettersubscribers`
+- Pricing template source: `backend/src/config/servicePricing.js`
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Update `servicePricing.js` anytime to change the services or prices shown in the outgoing email.

@@ -2,11 +2,17 @@ import { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
 
 export default function Contact() {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     subject: "",
     message: "",
+  });
+  const [submitState, setSubmitState] = useState({
+    loading: false,
+    success: "",
+    error: "",
   });
 
   const handleChange = (e) => {
@@ -16,10 +22,46 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+    setSubmitState({
+      loading: true,
+      success: "",
+      error: "",
+    });
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message.");
+      }
+
+      setSubmitState({
+        loading: false,
+        success: data.message || "Message sent successfully.",
+        error: "",
+      });
+      setFormData({
+        fullName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      setSubmitState({
+        loading: false,
+        success: "",
+        error: error.message || "Something went wrong. Please try again.",
+      });
+    }
   };
 
   return (
@@ -180,14 +222,22 @@ export default function Contact() {
                 {/* Submit Button */}
                 <button
                   type="submit"
+                  disabled={submitState.loading}
                   className="w-full py-4 rounded-xl font-semibold text-white transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-[#0DBCC1]/25"
                   style={{
                     background: "linear-gradient(90deg, #0DBCC1 0%, #0aa5aa 50%, #088f8f 100%)",
                   }}
                 >
-                  Send Message
+                  {submitState.loading ? "Sending..." : "Send Message"}
                   <Send className="w-4 h-4" />
                 </button>
+
+                {submitState.success && (
+                  <p className="text-center text-sm text-emerald-300">{submitState.success}</p>
+                )}
+                {submitState.error && (
+                  <p className="text-center text-sm text-rose-300">{submitState.error}</p>
+                )}
 
                 {/* Security Note */}
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
