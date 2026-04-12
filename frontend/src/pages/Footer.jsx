@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   Facebook,
   Instagram,
   Linkedin,
   MessageCircle,
   Send,
-  ChevronRight
 } from "lucide-react";
 
 import { getFooterData } from "../api";
 
 const Footer = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
   const [footer, setFooter] = useState(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribeState, setSubscribeState] = useState({
+    loading: false,
+    success: "",
+    error: "",
+  });
 
   useEffect(() => {
     async function fetchFooter() {
@@ -26,6 +31,43 @@ const Footer = () => {
     fetchFooter();
   }, []);
 
+  const handleNewsletterSubmit = async (event) => {
+    event.preventDefault();
+    setSubscribeState({
+      loading: true,
+      success: "",
+      error: "",
+    });
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/newsletter/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to subscribe right now.");
+      }
+
+      setSubscribeState({
+        loading: false,
+        success: data.message || "Pricing details sent to your email.",
+        error: "",
+      });
+      setNewsletterEmail("");
+    } catch (error) {
+      setSubscribeState({
+        loading: false,
+        success: "",
+        error: error.message || "Unable to subscribe right now.",
+      });
+    }
+  };
+
   if (!footer) return null;
 
   // ICON MAP
@@ -38,18 +80,6 @@ const Footer = () => {
 
   return (
     <footer className="bg-white text-gray-900 relative overflow-hidden">
-      {/* Top CTA Section */}
-      <div className="border-b border-gray-200 py-12 px-6 md:px-20">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-black">
-            {footer.title}
-          </h2>
-          <button className="flex items-center gap-3 bg-[#0DBCC1] hover:bg-[#0aa5aa] text-white font-semibold px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#0DBCC1]/25">
-            {footer.buttonText}
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
 
       {/* Main Footer Content */}
       <div className="px-6 md:px-20 py-16">
@@ -128,16 +158,31 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-6 text-black">
               Get the latest information
             </h4>
-            <div className="flex items-center bg-gray-100 rounded-full overflow-hidden shadow-lg border border-gray-200">
-              <input
-                type="email"
-                placeholder={footer.newsletter.placeholder}
-                className="flex-1 px-5 py-3 text-gray-700 text-sm outline-none bg-gray-100"
-              />
-              <button className="bg-[#0DBCC1] hover:bg-[#0aa5aa] text-white p-3 transition-colors flex items-center justify-center">
-                <Send size={20} />
-              </button>
-            </div>
+            <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+              <div className="flex items-center bg-gray-100 rounded-full overflow-hidden shadow-lg border border-gray-200">
+                <input
+                  type="email"
+                  placeholder={footer.newsletter.placeholder}
+                  value={newsletterEmail}
+                  onChange={(event) => setNewsletterEmail(event.target.value)}
+                  required
+                  className="flex-1 px-5 py-3 text-gray-700 text-sm outline-none bg-gray-100"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribeState.loading}
+                  className="bg-[#0DBCC1] hover:bg-[#0aa5aa] text-white p-3 transition-colors flex items-center justify-center disabled:opacity-70"
+                >
+                  <Send size={20} />
+                </button>
+              </div>
+              {subscribeState.success && (
+                <p className="text-sm text-emerald-600">{subscribeState.success}</p>
+              )}
+              {subscribeState.error && (
+                <p className="text-sm text-rose-600">{subscribeState.error}</p>
+              )}
+            </form>
           </div>
         </div>
       </div>
