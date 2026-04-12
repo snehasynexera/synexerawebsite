@@ -2,6 +2,49 @@ import React, { useState, useEffect } from "react";
 import { getNavbarData } from "../api";
 import { Menu, X } from "lucide-react";
 
+const getLuminance = (r, g, b) => (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+
+const parseRgbTuple = (value) => {
+  if (!value || value === "transparent") return null;
+  const match = value.match(
+    /rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*(0|1|0?\.\d+))?\)/i
+  );
+  if (!match) return null;
+  return {
+    r: Number(match[1]),
+    g: Number(match[2]),
+    b: Number(match[3]),
+    a: match[4] === undefined ? 1 : Number(match[4]),
+  };
+};
+
+const isDarkVisualBackground = (element) => {
+  const style = window.getComputedStyle(element);
+  const colorTuple = parseRgbTuple(style.backgroundColor);
+  const image = style.backgroundImage || "";
+
+  if (colorTuple && colorTuple.a > 0.2) {
+    const { r, g, b } = colorTuple;
+    if (getLuminance(r, g, b) < 120) return true;
+  }
+
+  const rgbMatches = [
+    ...image.matchAll(
+      /rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*(0|1|0?\.\d+))?\)/gi
+    ),
+  ];
+  if (!rgbMatches.length) return false;
+
+  return rgbMatches.some((match) => {
+    const r = Number(match[1]);
+    const g = Number(match[2]);
+    const b = Number(match[3]);
+    const a = match[4] === undefined ? 1 : Number(match[4]);
+    if (a <= 0.2) return false;
+    return getLuminance(r, g, b) < 120;
+  });
+};
+
 export default function Navbar() {
   const [links, setLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -63,33 +106,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [links]);
 
-  // ✅ Detect when navbar is over dark banners (sections or footers with dark backgrounds)
+  // ✅ Detect when navbar is over dark sections for contrast-safe nav styling
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      const probeY = window.scrollY + 52; // navbar visual center
       let isOverBanner = false;
 
-      // Check for dark background sections and footers
-      const darkElements = document.querySelectorAll('section, footer');
+      const darkElements = document.querySelectorAll("section, footer");
       for (let element of darkElements) {
-        const computedStyle = window.getComputedStyle(element);
-        const bgColor = computedStyle.backgroundColor;
-        const bgImage = computedStyle.backgroundImage;
+        if (!isDarkVisualBackground(element)) continue;
 
-        // Check if element has dark navy background (rgb(7, 11, 85)) or dark gradient
-        const isDarkNavy = bgColor && bgColor.includes('rgb(7, 11, 85)');
-        const isDarkGradient = bgImage && (bgImage.includes('gradient') &&
-                              (bgImage.includes('7, 11, 85') || bgImage.includes('070B55') || bgImage.includes('0, 0, 0')));
+        const elementTop = element.offsetTop;
+        const elementBottom = elementTop + element.offsetHeight;
 
-        if (isDarkNavy || isDarkGradient) {
-          const elementTop = element.offsetTop;
-          const elementHeight = element.offsetHeight;
-          const elementBottom = elementTop + elementHeight;
-
-          if (scrollY >= elementTop && scrollY < elementBottom) {
-            isOverBanner = true;
-            break;
-          }
+        if (probeY >= elementTop && probeY < elementBottom) {
+          isOverBanner = true;
+          break;
         }
       }
 
@@ -147,10 +179,12 @@ export default function Navbar() {
 
         {/* MOBILE MENU ICON */}
         <button
-          className="xl:hidden text-black focus:outline-none"
+          className={`xl:hidden focus:outline-none transition-colors ${
+            isOverDarkBanner ? "text-white" : "text-black"
+          }`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} color="black" />}
+          {isOpen ? <X size={28} /> : <Menu size={28} color={isOverDarkBanner ? "white" : "black"} />}
         </button>
       </div>
 
