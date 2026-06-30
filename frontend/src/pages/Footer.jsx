@@ -100,13 +100,23 @@ const Footer = () => {
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
               {footer.description}
             </p>
-            <div className="flex gap-4 text-[#0DBCC1]">
-              {footer.socialLinks.map((item, i) => (
-                <div key={i} className="hover:scale-110 transition-transform">
-                  {iconMap[item.icon]}
-                </div>
-              ))}
-            </div>
+             <div className="flex gap-4 text-[#0DBCC1]">
+  {footer.socialLinks.map((item, i) => (
+    <a
+      key={i}
+      href={
+        item.icon === "linkedin"
+          ? "https://www.linkedin.com/company/synexera/"
+          : item.link
+      }
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:scale-110 transition-transform"
+    >
+      {iconMap[item.icon]}
+    </a>
+  ))}
+</div>
           </div>
 
           {/* Navigation */}
