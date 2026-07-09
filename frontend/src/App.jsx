@@ -21,6 +21,7 @@ import DataEntry from "./pages/Services/DataEntry";
 import WorkAutomation from "./pages/Services/WorkAutomation";
 import DevOps from "./pages/Services/DevOps";
 import AiMl from "./pages/Services/AiMl";
+import List from "./pages/Careers/List";
 function AppContent() {
   const location = useLocation();
   const isFullReviewRoute = location.pathname === "/fullReview";
@@ -51,6 +52,7 @@ function AppContent() {
           <Route path="/Services/WorkAutomation" element={<WorkAutomation />} />
           <Route path="/Services/DevOps" element={<DevOps />} />
           <Route path="/Services/AiMl" element={<AiMl />} />
+          <Route path="/Careers/List" element={<List />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
