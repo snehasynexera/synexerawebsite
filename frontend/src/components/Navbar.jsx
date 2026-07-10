@@ -141,22 +141,20 @@ export default function Navbar() {
 
         {/* DESKTOP NAV */}
         <div className="hidden xl:flex justify-center w-full relative">
-          <div className={`rounded-full px-6 py-2 flex items-center gap-6 shadow-lg backdrop-blur-md transition-all duration-300 ${
-            isOverDarkBanner
+          <div className={`rounded-full px-6 py-2 flex items-center gap-6 shadow-lg backdrop-blur-md transition-all duration-300 ${isOverDarkBanner
               ? "bg-white text-[#071234]"
               : "bg-[#070B55] text-white"
-          }`}>
+            }`}>
             {links.map((label, i) => (
               <button
                 key={i}
                 onClick={() => handleScroll(label)}
-                className={`px-5 py-1 rounded-full text-sm font-medium transition-all duration-300 ${
-                  active === label
+                className={`px-5 py-1 rounded-full text-sm font-medium transition-all duration-300 ${active === label
                     ? "bg-[#22F6F2] text-[#071234]"
                     : isOverDarkBanner
-                    ? "text-[#071234] hover:text-[#22F6F2]"
-                    : "text-white hover:text-[#22F6F2]"
-                }`}
+                      ? "text-[#071234] hover:text-[#22F6F2]"
+                      : "text-white hover:text-[#22F6F2]"
+                  }`}
               >
                 {label}
               </button>
@@ -166,11 +164,10 @@ export default function Navbar() {
           {/* Contact Us Button */}
           <button
             onClick={() => handleScroll("contact")}
-            className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              isOverDarkBanner
+            className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${isOverDarkBanner
                 ? "border-white text-white hover:bg-white hover:text-[#070B55]"
                 : "border-[#070B55] text-[#070B55] hover:bg-[#070B55] hover:text-white"
-            }`}
+              }`}
             style={{ marginRight: '134px' }}
           >
             Contact Us
@@ -179,9 +176,8 @@ export default function Navbar() {
 
         {/* MOBILE MENU ICON */}
         <button
-          className={`xl:hidden focus:outline-none transition-colors ${
-            isOverDarkBanner ? "text-white" : "text-black"
-          }`}
+          className={`xl:hidden focus:outline-none transition-colors ${isOverDarkBanner ? "text-white" : "text-black"
+            }`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} color={isOverDarkBanner ? "white" : "black"} />}
@@ -195,11 +191,10 @@ export default function Navbar() {
             <button
               key={i}
               onClick={() => handleScroll(label)}
-              className={`w-full text-center text-lg font-medium transition-all duration-300 ${
-                active === label
+              className={`w-full text-center text-lg font-medium transition-all duration-300 ${active === label
                   ? "text-[#22F6F2]"
                   : "text-white hover:text-[#22F6F2]"
-              }`}
+                }`}
             >
               {label}
             </button>

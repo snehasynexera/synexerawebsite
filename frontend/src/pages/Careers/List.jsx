@@ -1,7 +1,8 @@
  import React from 'react'
  import HeroSectionCareer from '../../components/HeroSectionCareer'
-import Navbar from '../../components/Navbar'
-
+import CareerList from '../../components/CareerList' 
+import KnowMoreCareer from '../../components/KnowMoreCareer'
+import Footer from '../Footer'
 export default function List() {
   return (
 <div className="relative  ">
@@ -13,6 +14,8 @@ export default function List() {
       </div>
       
       <HeroSectionCareer />
-
+      <CareerList/>
+    <KnowMoreCareer/>
+    <Footer/>
       </div>
         )}
