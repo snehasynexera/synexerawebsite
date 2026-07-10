@@ -10,16 +10,17 @@ export default function HeroSectionCareer() {
   return (
     <div className="relative bg-[#E9F4FE] w-full min-h-[100vh] lg:h-[110vh] overflow-hidden flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-16">
       {/* Background Right Side Career SVG */}
-      <div className="absolute top-0 right-0 h-full flex items-center justify-end pointer-events-none z-0">
+      <div className="absolute top-[-5%] right-0 h-[120%] flex items-center justify-end pointer-events-none z-0">
         <img
           src="/Career.svg"
           alt="Career Graphic"
-          className="w-[450px] sm:w-[600px] lg:w-[750px] xl:w-[850px] h-full object-contain object-right"
-        />
+          className="w-[600px] sm:w-[800px] lg:w-[1000px] xl:w-[1200px] h-full object-contain object-right"
+
+/>
       </div>
 
-      
-      <div className="relative z-10 max-w-[1350px] mx-auto px-6 sm:px-10 lg:px-16 w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+
+      <div className="relative z-10 w-full pl-14 sm:pl-[84px] md:pl-[92px] pr-4 sm:pr-8 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
         <div className="w-full lg:w-[52%] ">
           <h1 className="text-[#070B55] text-4xl sm:text-5xl md:text-6xl font-['Syne'] font-semibold leading-tight">
             Find the perfect <br />

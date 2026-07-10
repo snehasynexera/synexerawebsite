@@ -6,18 +6,18 @@ export default function KnowMoreCareer() {
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
         {/* Heading */}
         <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-['Syne'] font-bold tracking-tight">
-          We&apos;re Here to Help!
+          Where Talent Meets Opportunity
         </h2>
 
         {/* Subtitle */}
         <p className="text-white/90 text-xs sm:text-sm md:text-base font-medium mt-3 sm:mt-4 max-w-2xl leading-relaxed">
-          Join a team of innovators, problem-solvers, and creators shaping the future of technology. ✨
+          Join a passionate team that's transforming ideas into innovative solutions while helping you reach your full potential.
         </p>
 
         {/* CTA Button */}
         <div className="mt-8 sm:mt-10">
           <button className="inline-flex items-center gap-2 bg-[#64F8ED] hover:bg-[#4CE5DA] text-[#070B55] font-semibold text-xs sm:text-sm py-3.5 px-8 sm:px-9 rounded-full shadow-lg transition-all duration-300 hover:scale-105">
-            <span>Schedule Free Consultation</span>
+            <span>Join Our Team</span>
             <svg
               className="w-4 h-4 stroke-[2.5]"
               fill="none"

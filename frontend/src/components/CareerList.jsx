@@ -2,26 +2,26 @@ import React from 'react'
 
 const jobs = [
   {
-    category: 'Design',
-    title: 'Senior Art Director',
+    category: 'Devlopment',
+    title: 'Microsoft & Full Stack Developer',
     description:
-      'We are seeking a senior-level Art Director to join our creative team',
+      'We are seeking a Microsoft & Full Stack Developer to join our creative team',
     location: 'Remote',
     type: 'Full-time',
   },
   {
-    category: 'Development',
-    title: 'Backend Developer',
+    category: 'BDE',
+    title: ' Business Development Executive ',
     description:
-      'We are seeking a Backend Developer to join our creative team',
+      'We are seeking a Business Development Executive to join our creative team',
     location: 'Remote',
     type: 'Full-time',
   },
   {
-    category: 'Design',
-    title: 'UI/UX Designer',
+    category: 'Intern',
+    title: 'React.js Frontend ',
     description:
-      'We are seeking a senior-level Art Director to join our creative team',
+      'Calling all React.js enthusiast',
     location: 'Remote',
     type: 'Full-time',
   },
@@ -29,7 +29,7 @@ const jobs = [
 
 export default function CareerList() {
   return (
-    <section className="w-full bg-white py-20 lg:py-28 px-6 sm:px-10 lg:px-16">
+    <section className="w-full bg-white py-20 lg:py-28 pl-14 sm:pl-[84px] md:pl-[92px] pr-4 sm:pr-8">
       {/* Centered Header Section */}
       <div className="text-center max-w-2xl mx-auto">
         <h2 className="text-[#070B55] text-4xl sm:text-5xl md:text-6xl font-['Syne'] font-bold tracking-tight">
@@ -41,7 +41,7 @@ export default function CareerList() {
       </div>
 
       {/* Main Two-Column Content Grid */}
-      <div className="max-w-[1400px] mx-auto mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="w-full mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Left Column: Job Openings List */}
         <div className="lg:col-span-6 space-y-8">
           {jobs.map((job, index) => (
