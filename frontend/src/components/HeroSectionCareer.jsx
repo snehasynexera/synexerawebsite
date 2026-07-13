@@ -16,7 +16,7 @@ export default function HeroSectionCareer() {
           alt="Career Graphic"
           className="w-[600px] sm:w-[800px] lg:w-[1000px] xl:w-[1200px] h-full object-contain object-right"
 
-/>
+        />
       </div>
 
 
@@ -90,62 +90,69 @@ export default function HeroSectionCareer() {
         </div>
 
         {/* Right Column: Refined Hero Portrait Card & Floating Stats Card */}
-        <div className="w-full lg:w-[48%] flex items-center justify-center lg:justify-end pr-4 sm:pr-8 lg:pr-12 mt-8 lg:mt-0">
-          <div className="relative">
-            {/* Main Dark Portrait Card */}
-            <div className="w-[280px] sm:w-[330px] lg:w-[350px] xl:w-[390px] h-[390px] sm:h-[450px] lg:h-[470px] xl:h-[510px] rounded-[36px] xl:rounded-[42px] overflow-hidden shadow-2xl bg-[#4A4A4A]">
-              <img
-                src="/images/Men.png"
-                alt="Career Professional"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
+<div className="w-full lg:w-[48%] flex items-start justify-center lg:justify-center pr-4 sm:pr-8 lg:pr-12 mt-4 lg:-mt-16 xl:-mt-20">
+  <div className="relative -translate-x-2 sm:-translate-x-4 lg:-translate-x-12 xl:-translate-x-16">
+    {/* White Background Card (Bottom Layer) */}
+    <div className="absolute top-0 left-0 w-[280px] sm:w-[330px] lg:w-[350px] xl:w-[390px] h-[390px] sm:h-[450px] lg:h-[470px] xl:h-[510px] rounded-[36px] xl:rounded-[42px] bg-white origin-bottom-left rotate-6"></div>
+    
+    {/* Cyan Background Card (Middle Layer) */}
+    <div className="absolute top-0 left-0 w-[280px] sm:w-[330px] lg:w-[350px] xl:w-[390px] h-[390px] sm:h-[450px] lg:h-[470px] xl:h-[510px] rounded-[36px] xl:rounded-[42px] bg-[#00CED1] origin-bottom-left rotate-3"></div>
 
-            {/* Floating White Stats Card Overlapping Bottom-Right */}
-            <div className="absolute -bottom-6 sm:-bottom-8 -right-4 sm:-right-8 lg:-right-10 xl:-right-14 bg-white rounded-[24px] shadow-[0_20px_50px_rgba(7,11,85,0.18)] p-5 sm:p-6 xl:p-7 w-[230px] sm:w-[250px] xl:w-[280px] border border-gray-100/80 z-20">
-              <div className="space-y-3.5 xl:space-y-4">
+    {/* Main Dark Portrait Card (Top Layer) */}
+    <div className="relative w-[280px] sm:w-[330px] lg:w-[350px] xl:w-[390px] h-[390px] sm:h-[450px] lg:h-[470px] xl:h-[510px] rounded-[36px] xl:rounded-[42px] overflow-hidden shadow-2xl bg-[#4A4A4A]">
+      <img
+        src="/images/Men.png"
+        alt="Career Professional"
+        className="w-full h-full object-cover object-top"
+      />
+    </div>
+
+    {/* Floating White Stats Card */}
+    <div className=" absolute top-[62%] -translate-y-1/2 -right-8 sm:-right-10 lg:-right-12 xl:-right-20 bg-white rounded-[24px] shadow-[0_20px_50px_rgba(7,11,85,0.18)] p-3 sm:p-4 xl:p-5 w-[180px] sm:w-[200px] xl:w-[220px] border border-gray-100/80 z-20">
+              <div className="space-y-2 xl:space-y-2.5">
                 {/* Stat Item 1 */}
                 <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xl xl:text-2xl font-bold text-[#070B55] font-['Syne']">
-                      319
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl sm:text-2xl xl:text-3xl font-bold text-[#070B55] font-['Syne']">
+                      10+
                     </span>
-                    <span className="text-xs xl:text-sm font-semibold text-[#070B55]">
-                      Jobs Offers
+                    <span className="text-[14px] xl:text-[12px] font-bold text-[#070B55]">
+                      Team Members
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#070B55]/70 mt-0.5 font-medium">
-                    in Business Development
+                  <p className="text-[8px] xl:text-[9px] text-[#070B55]/70 mt-0.5 font-medium">
+                    across the globe
                   </p>
                 </div>
 
                 {/* Stat Item 2 */}
                 <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xl xl:text-2xl font-bold text-[#070B55] font-['Syne']">
-                      265
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl sm:text-2xl xl:text-3xl font-bold text-[#070B55] font-['Syne']">
+                      100%
                     </span>
-                    <span className="text-xs xl:text-sm font-semibold text-[#070B55]">
-                      Jobs Offers
+                    <span className="text-[12px] xl:text-[10px] font-bold text-[#070B55]">
+
+                      Remote Work
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#070B55]/70 mt-0.5 font-medium">
-                    in Marketing and Communication
+                  <p className="text-[8px] xl:text-[9px] text-[#070B55]/70 mt-0.5 font-medium">
+                    flexible environment
                   </p>
                 </div>
 
                 {/* Stat Item 3 */}
                 <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xl xl:text-2xl font-bold text-[#070B55] font-['Syne']">
-                      324
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl sm:text-2xl xl:text-3xl font-bold text-[#070B55] font-['Syne']">
+                      3
                     </span>
-                    <span className="text-xs xl:text-sm font-semibold text-[#070B55]">
-                      Jobs Offers
+                    <span className="text-[14px] xl:text-[12px] font-bold text-[#070B55]">
+                      Active Openings
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#070B55]/70 mt-0.5 font-medium">
-                    in Project Management
+                  <p className="text-[8px] xl:text-[9px] text-[#070B55]/70 mt-0.5 font-medium">
+                    join our team today
                   </p>
                 </div>
               </div>

@@ -1,31 +1,6 @@
 import React from 'react'
-
-const jobs = [
-  {
-    category: 'Devlopment',
-    title: 'Microsoft & Full Stack Developer',
-    description:
-      'We are seeking a Microsoft & Full Stack Developer to join our creative team',
-    location: 'Remote',
-    type: 'Full-time',
-  },
-  {
-    category: 'BDE',
-    title: ' Business Development Executive ',
-    description:
-      'We are seeking a Business Development Executive to join our creative team',
-    location: 'Remote',
-    type: 'Full-time',
-  },
-  {
-    category: 'Intern',
-    title: 'React.js Frontend ',
-    description:
-      'Calling all React.js enthusiast',
-    location: 'Remote',
-    type: 'Full-time',
-  },
-]
+import { Link } from 'react-router-dom'
+import { jobsData } from '../data/jobsData'
 
 export default function CareerList() {
   return (
@@ -42,13 +17,13 @@ export default function CareerList() {
 
       {/* Main Two-Column Content Grid */}
       <div className="w-full mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        {/* Left Column: Job Openings List */}
-        <div className="lg:col-span-6 space-y-8">
-          {jobs.map((job, index) => (
+        {/* Left Column: Scrollable Job Openings List (~3 jobs visible at a time) */}
+        <div className="lg:col-span-6 max-h-[580px] overflow-y-auto pr-4 space-y-8 scroll-smooth [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#00CED1] [&::-webkit-scrollbar-thumb]:rounded-full">
+          {jobsData.map((job, index) => (
             <div
-              key={index}
+              key={job.id || index}
               className={`pb-8 ${
-                index !== jobs.length - 1 ? 'border-b border-gray-200' : 'border-b border-gray-200'
+                index !== jobsData.length - 1 ? 'border-b border-gray-200' : 'border-b border-gray-200'
               }`}
             >
               {/* Category */}
@@ -111,7 +86,10 @@ export default function CareerList() {
 
               {/* Apply CTA Button */}
               <div className="mt-5">
-                <button className="inline-flex items-center gap-2 bg-[#00CED1] hover:bg-[#00B2B5] text-[#070B55] font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-md transition-all duration-300">
+                <Link
+                  to={`/Careers/JobDetails/${job.id}`}
+                  className="inline-flex items-center gap-2 bg-[#00CED1] hover:bg-[#00B2B5] text-[#070B55] font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-md transition-all duration-300"
+                >
                   <span>Apply</span>
                   <svg
                     className="w-4 h-4 stroke-[2.5]"
@@ -125,7 +103,7 @@ export default function CareerList() {
                       d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                   </svg>
-                </button>
+                </Link>
               </div>
             </div>
           ))}
