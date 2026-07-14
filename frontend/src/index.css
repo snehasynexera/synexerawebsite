@@ -75,7 +75,9 @@ button:focus-visible {
 * {
   font-family: 'Syne', sans-serif;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: 'Syne', sans-serif;
 }

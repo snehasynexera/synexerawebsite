@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function PortfolioGallery({ items }) {
   const scrollContainerRef = useRef(null);
@@ -155,11 +156,21 @@ export default function PortfolioGallery({ items }) {
             >
               {/* Image Container */}
               <div className="relative overflow-hidden rounded-2xl mb-6 h-[320px]">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
+                {item.link ? (
+                  <Link to={item.link} className="block w-full h-full">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </Link>
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
 
               {/* Content */}
