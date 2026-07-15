@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const rows = [
   ["Web developer", "Designer", "Writer", "Senior"],
@@ -6,7 +6,44 @@ const rows = [
   ["Team Leader", "Web"],
 ];
 
-export default function HeroSectionCareer() {
+export default function HeroSectionCareer({ Number, onSearch, activeKeyword = '', activeLocation = '' }) {
+  const [keyword, setKeyword] = useState(activeKeyword)
+  const [location, setLocation] = useState(activeLocation)
+
+  useEffect(() => {
+    setKeyword(activeKeyword)
+    setLocation(activeLocation)
+  }, [activeKeyword, activeLocation])
+
+  const handleSearchSubmit = (e) => {
+    if (e) e.preventDefault()
+    if (onSearch) {
+      onSearch(keyword, location)
+      const element = document.getElementById('job-listings')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
+  const handlePopularSearchClick = (tag) => {
+    setKeyword(tag)
+    if (onSearch) {
+      onSearch(tag, location)
+      const element = document.getElementById('job-listings')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
+  const handleGetStarted = () => {
+    const element = document.getElementById('job-listings')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <div className="relative bg-[#E9F4FE] w-full min-h-[100vh] lg:h-[110vh] overflow-hidden flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-16">
       {/* Background Right Side Career SVG */}
@@ -30,22 +67,55 @@ export default function HeroSectionCareer() {
             Search your career opportunity
           </p>
 
-          <div className="flex items-center bg-white mt-8 rounded-full shadow-md pl-6 pr-2 py-2.5 max-w-xl w-full">
+          <form onSubmit={handleSearchSubmit} className="flex items-center bg-white mt-8 rounded-full shadow-md pl-6 pr-2 py-2.5 max-w-xl w-full">
             <input
               type="text"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onFocus={(e) => (e.target.placeholder = '')}
+              onBlur={(e) => (e.target.placeholder = 'Job Title or Keyword')}
               placeholder="Job Title or Keyword"
               className="flex-1 outline-none text-black placeholder-black text-sm bg-transparent text-end"
             />
 
             <div className="h-6 w-px bg-gray-300 mx-4"></div>
 
-            <input
-              type="text"
-              placeholder="All Locations"
-              className="flex-1 outline-none text-black placeholder-black text-sm bg-transparent"
-            />
+            <div className="flex-1 relative flex items-center">
+              <select
+                value={location}
+                onChange={(e) => {
+                  const newLoc = e.target.value
+                  setLocation(newLoc)
+                  if (onSearch) {
+                    onSearch(keyword, newLoc)
+                  }
+                }}
+                aria-label="Filter by location"
+                className="w-full outline-none text-black text-sm bg-transparent cursor-pointer appearance-none pr-6 font-medium"
+              >
+                <option value="" className="text-black bg-white">All Locations</option>
+                <option value="Remote" className="text-black bg-white">Remote</option>
+              </select>
+              <svg
+                className="w-4 h-4 text-gray-500 absolute right-1 pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
 
-            <button className="flex items-center justify-center w-11 h-11 rounded-full bg-teal-400 hover:bg-teal-500 transition-colors ml-3 shrink-0">
+            <button
+              type="submit"
+              aria-label="Search Jobs"
+              className="flex items-center justify-center w-11 h-11 rounded-full bg-teal-400 hover:bg-teal-500 transition-colors ml-3 shrink-0 cursor-pointer"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-white"
@@ -61,7 +131,7 @@ export default function HeroSectionCareer() {
                 />
               </svg>
             </button>
-          </div>
+          </form>
 
           <h2 className="text-[#070B55] mt-8 text-lg sm:text-xl md:text-2xl font-['Syne'] font-semibold leading-tight">
             Popular Searches
@@ -71,18 +141,20 @@ export default function HeroSectionCareer() {
             {rows.map((row, rowIndex) => (
               <div key={rowIndex} className="flex flex-wrap gap-3">
                 {row.map((item, index) => (
-                  <div
+                  <button
                     key={index}
-                    className="inline-flex items-center text-[#00CED1] h-9 sm:h-10 whitespace-nowrap rounded-full border border-black bg-transparent shadow-sm px-5 text-xs sm:text-sm font-medium"
+                    type="button"
+                    onClick={() => handlePopularSearchClick(item)}
+                    className="inline-flex items-center text-[#00CED1] h-9 sm:h-10 whitespace-nowrap rounded-full border border-black bg-transparent shadow-sm px-5 text-xs sm:text-sm font-medium hover:bg-[#00CED1]/10 hover:border-[#00CED1] transition-all cursor-pointer"
                   >
                     {item}
-                  </div>
+                  </button>
                 ))}
               </div>
             ))}
           </div>
 
-          <button className="block mt-10 md:mt-12">
+          <button onClick={handleGetStarted} type="button" className="block mt-10 md:mt-12 cursor-pointer">
             <div className="bg-[#00CED1] hover:bg-[#008080] text-[#070B55] text-base md:text-lg font-medium py-3.5 px-8 rounded-full shadow-md transition-all duration-300">
               Get Started Today
             </div>
@@ -145,7 +217,7 @@ export default function HeroSectionCareer() {
                 <div>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl xl:text-3xl font-bold text-[#070B55] font-['Syne']">
-                      3
+                      {Number}
                     </span>
                     <span className="text-[14px] xl:text-[12px] font-bold text-[#070B55]">
                       Active Openings

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getNavbarData } from "../api";
 import { Menu, X } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const getLuminance = (r, g, b) => (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
 
 const parseRgbTuple = (value) => {
@@ -46,6 +46,7 @@ const isDarkVisualBackground = (element) => {
 };
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [links, setLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
@@ -163,14 +164,14 @@ export default function Navbar() {
 
           {/* Contact Us Button */}
           <button
-            onClick={() => handleScroll("contact")}
+            onClick={() => navigate("/Careers/List")}
             className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${isOverDarkBanner
                 ? "border-white text-white hover:bg-white hover:text-[#070B55]"
                 : "border-[#070B55] text-[#070B55] hover:bg-[#070B55] hover:text-white"
               }`}
             style={{ marginRight: '134px' }}
           >
-            Contact Us
+            Career
           </button>
         </div>
 
