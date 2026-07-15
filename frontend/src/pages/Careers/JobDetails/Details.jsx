@@ -6,7 +6,7 @@ import Footer from '../../Footer'
 export default function Details() {
   const { jobId } = useParams()
   const job = jobsData.find((item) => item.id === jobId) || jobsData[0]
-  const emailAddress = job.applyEmail || 'careers@synexera.com'
+  const emailAddress = job.applyEmail || 'hr@synexera.com'
 
   const [copied, setCopied] = useState(false)
 

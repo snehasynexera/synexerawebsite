@@ -4,7 +4,8 @@ import CareerList from '../../components/CareerList'
 import KnowMoreCareer from '../../components/KnowMoreCareer'
 import Footer from '../Footer'
 export default function List() {
-  return (
+  return ( 
+   
 <div className="relative  ">
   
       <div className="absolute top-4 left-4 sm:left-8 z-20 flex items-center gap-2 sm:gap-3">
@@ -13,7 +14,7 @@ export default function List() {
         
       </div>
       
-      <HeroSectionCareer />
+      <HeroSectionCareer Number= "3" />
       <CareerList/>
     <KnowMoreCareer/>
     <Footer/>

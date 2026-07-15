@@ -6,7 +6,7 @@ const rows = [
   ["Team Leader", "Web"],
 ];
 
-export default function HeroSectionCareer() {
+export default function HeroSectionCareer({ Number }) {
   return (
     <div className="relative bg-[#E9F4FE] w-full min-h-[100vh] lg:h-[110vh] overflow-hidden flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-16">
       {/* Background Right Side Career SVG */}
@@ -145,7 +145,7 @@ export default function HeroSectionCareer() {
                 <div>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl xl:text-3xl font-bold text-[#070B55] font-['Syne']">
-                      3
+                      {Number}
                     </span>
                     <span className="text-[14px] xl:text-[12px] font-bold text-[#070B55]">
                       Active Openings
