@@ -155,7 +155,7 @@ export default function HeroSectionCareer({ Number, onSearch, activeKeyword = ''
           </div>
 
           <button onClick={handleGetStarted} type="button" className="block mt-10 md:mt-12 cursor-pointer">
-            <div className="bg-[#00CED1] hover:bg-[#008080] text-[#070B55] text-base md:text-lg font-medium py-3.5 px-8 rounded-full shadow-md transition-all duration-300">
+            <div className="bg-[#00CED1] hover:bg-[#008080] text-white text-base md:text-lg font-medium py-3.5 px-8 rounded-full shadow-md transition-all duration-300">
               Get Started Today
             </div>
           </button>

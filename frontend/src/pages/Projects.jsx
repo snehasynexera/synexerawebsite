@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { getCaseStudiesData } from "../api";
-import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const autoScrollRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(600);
 
-  // Load JSON
+  const leftContainerRef = useRef(null);
+  const autoScrollRef = useRef(null);
+  const touchStartXRef = useRef(0);
+
+  // Load JSON data
   useEffect(() => {
     async function load() {
       try {
@@ -18,262 +23,313 @@ export default function Projects() {
           setCurrentIndex(data.length); // Start at beginning of middle array
         }
       } catch (err) {
-        console.error(err);
+        console.error("Error loading case studies:", err);
       }
     }
     load();
   }, []);
 
-  // Handle infinite loop - reset position when reaching boundaries
+  // Track container width for precise responsive sliding calculations
+  useEffect(() => {
+    const updateWidth = () => {
+      if (leftContainerRef.current) {
+        setContainerWidth(leftContainerRef.current.clientWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  // Handle infinite loop boundary snapping
   useEffect(() => {
     if (projects.length === 0) return;
-    
+
     const maxIndex = projects.length * 2; // End of middle array
     const minIndex = projects.length; // Start of middle array
-    
-    // If we've scrolled past the end of the middle array, snap back to start of middle array
-    if (currentIndex >= maxIndex) {
-      setTimeout(() => {
-        setCurrentIndex(projects.length);
-      }, 600); // Wait for transition to complete
-    }
-    // If we've scrolled before the start of middle array, snap to end of middle array
-    else if (currentIndex < minIndex) {
-      setTimeout(() => {
-        setCurrentIndex(projects.length * 2 - 1);
-      }, 600);
-    }
-  }, [currentIndex, projects.length]);
 
-  // Auto-scroll every 4 seconds
+    if (currentIndex >= maxIndex) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex((prev) => prev - projects.length);
+      }, 700); // Wait for transition duration
+      return () => clearTimeout(timer);
+    } else if (currentIndex < minIndex) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex((prev) => prev + projects.length);
+      }, 700);
+      return () => clearTimeout(timer);
+    } else if (!isTransitioning) {
+      // Re-enable transitions seamlessly after snapping
+      const timer = setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, projects.length, isTransitioning]);
+
+  // Auto-scroll logic
   useEffect(() => {
-    if (projects.length === 0) return;
-    
+    if (projects.length === 0 || isHovered) return;
+
     autoScrollRef.current = setInterval(() => {
+      setIsTransitioning(true);
       setCurrentIndex((prev) => prev + 1);
-    }, 4000);
+    }, 4500);
 
     return () => {
       if (autoScrollRef.current) {
         clearInterval(autoScrollRef.current);
       }
     };
-  }, [projects.length, currentIndex]);
-
-  // Create a longer array for seamless scrolling
-  const extendedProjects = projects.length > 0 
-    ? [...projects, ...projects, ...projects] 
-    : [];
-
-  const handleNext = () => {
-    if (projects.length > 0) {
-      setCurrentIndex((prev) => prev + 1);
-      resetAutoScroll();
-    }
-  };
-
-  const handlePrev = () => {
-    if (projects.length > 0) {
-      setCurrentIndex((prev) => prev - 1);
-      resetAutoScroll();
-    }
-  };
-
-  const goToSlide = (index) => {
-    const actualIndex = index + projects.length; // Adjust to middle array
-    setCurrentIndex(actualIndex);
-    resetAutoScroll();
-  };
+  }, [projects.length, isHovered]);
 
   const resetAutoScroll = () => {
     if (autoScrollRef.current) {
       clearInterval(autoScrollRef.current);
     }
     autoScrollRef.current = setInterval(() => {
-      handleNext();
-    }, 4000);
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => prev + 1);
+    }, 4500);
   };
 
-  // Get the actual project index for the dots
+  const handleNext = () => {
+    if (projects.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
+    resetAutoScroll();
+  };
+
+  const handlePrev = () => {
+    if (projects.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
+    resetAutoScroll();
+  };
+
+  const goToSlide = (stepOffset) => {
+    if (projects.length === 0 || stepOffset === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + stepOffset);
+    resetAutoScroll();
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartXRef.current - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+  };
+
+  // Get the actual project index (0 to projects.length - 1)
   const getActualIndex = () => {
     if (projects.length === 0) return 0;
     return ((currentIndex % projects.length) + projects.length) % projects.length;
   };
 
+  const actualIndex = getActualIndex();
+  const currentProject = projects[actualIndex] || {};
+
+  // Create extended array of projects for seamless infinite track
+  const extendedProjects = projects.length > 0
+    ? [...projects, ...projects, ...projects]
+    : [];
+
+  // Calculate card dimensions dynamically based on container width
+  const cardWidth = Math.min(410, Math.max(260, Math.floor(containerWidth * 0.63)));
+  const gap = containerWidth >= 500 ? 28 : 16;
+  const offset = containerWidth - cardWidth;
+  const translateX = offset - currentIndex * (cardWidth + gap);
+
   return (
-    <section 
-      id="projects" 
-      className="w-full py-20 px-6 bg-white text-black overflow-hidden"
-      style={{ minHeight: '100vh' }}
+    <section
+      id="projects"
+      className="w-full py-20 px-6 md:px-16 lg:px-24 bg-white text-black overflow-hidden select-none"
+      style={{ minHeight: "100vh" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Header Section - Restored Original */}
-      <div className="w-full mb-20 px-6 md:px-16 lg:px-24">
+      {/* Header Block */}
+      <div className="w-full mb-12 sm:mb-16">
         {/* Scrolling Text */}
         <div className="relative w-[200px] overflow-hidden mb-4">
-          <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4">
-            <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
-            <span className="flex gap-2 items-center">Recent Work <span className="text-[#0DBCC1]">✦</span></span>
+          <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4 font-medium">
+            <span className="flex gap-2 items-center">
+              Recent Work <span className="text-[#0DBCC1]">✦</span>
+            </span>
+            <span className="flex gap-2 items-center">
+              Recent Work <span className="text-[#0DBCC1]">✦</span>
+            </span>
           </div>
         </div>
 
-        {/* Heading with "Growth" highlighted */}
-        <div className="flex items-center justify-between">
+        {/* Heading with "Growth" highlighted and View all Projects button */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <h2
             style={{
-              fontSize: '48px',
+              fontSize: "clamp(36px, 5vw, 54px)",
               fontWeight: 700,
-              fontFamily: 'Syne',
-              color: '#000',
-              lineHeight: 'normal'
+              fontFamily: "Syne, sans-serif",
+              color: "#000",
+              lineHeight: "1.15",
             }}
           >
             Recent projects that
             <br />
-            highlight our{' '}
+            highlight our{" "}
             <span
               style={{
-                color: '#0DBCC1',
-                textDecoration: 'underline',
-                textDecorationThickness: 'auto',
-                textUnderlineOffset: 'auto',
-                textDecorationLine: 'underline'
+                color: "#0DBCC1",
+                textDecoration: "underline",
+                textDecorationThickness: "auto",
+                textUnderlineOffset: "auto",
+                textDecorationLine: "underline",
               }}
             >
               Growth
             </span>
           </h2>
-          <button 
-            className="border-2 border-black text-black px-8 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-all"
-            style={{ whiteSpace: 'nowrap' }}
+          <button
+            className="border-2 border-black text-black px-8 py-3.5 rounded-full font-semibold hover:bg-black hover:text-white transition-all self-start md:self-center shadow-sm"
+            style={{ whiteSpace: "nowrap" }}
           >
             View all Projects ≫
           </button>
         </div>
       </div>
 
-      {/* 3D Carousel */}
-      <div 
-        className="relative w-full mt-20"
-        style={{ 
-          height: '600px',
-          perspective: '2000px',
-          perspectiveOrigin: 'center center'
-        }}
-      >
-        <div 
-          className="absolute inset-0 flex items-center justify-center overflow-hidden"
-          style={{
-            transformStyle: 'preserve-3d',
-          }}
+      {/* Main Layout: Left Visual Track & Right Information Block */}
+      <div className="flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-12 lg:gap-16 mt-8">
+        {/* Left Visual Sliding Track */}
+        <div
+          ref={leftContainerRef}
+          className="relative w-full lg:w-[54%] h-[430px] sm:h-[490px] lg:h-[530px] overflow-hidden rounded-3xl"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-          <div 
-            className="flex items-center"
+          <div
+            className="flex items-center h-full absolute top-0 left-0"
             style={{
-              transformStyle: 'preserve-3d',
-              transform: `translateX(calc(50% - ${currentIndex * 410}px))`,
-              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: `translateX(${translateX}px)`,
+              transition: isTransitioning
+                ? "transform 0.7s cubic-bezier(0.25, 1, 0.5, 1)"
+                : "none",
             }}
           >
-            {extendedProjects.map((project, index) => {
-              const centerOffset = index - currentIndex;
-              const distance = Math.abs(centerOffset);
-              const rotateY = centerOffset * 12;
-              const translateZ = -distance * 80;
-              const isHovered = hoveredCard === index;
-              const isCentered = centerOffset === 0;
-              
-              let scale = 0.7;
-              if (isCentered) {
-                scale = isHovered ? 1.08 : 1;
-              } else if (distance === 1) {
-                scale = 0.85;
-              } else if (distance === 2) {
-                scale = 0.75;
-              }
-              
-              const opacity = Math.max(0.3, 1 - distance * 0.15);
+            {extendedProjects.map((project, idx) => {
+              const isCurrent = idx === currentIndex;
+              const isPrevious = idx === currentIndex - 1;
 
               return (
                 <div
-                  key={`${project.projectId}-${index}`}
-                  className="flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl cursor-pointer mx-3"
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  style={{
-                    width: '380px',
-                    height: '480px',
-                    transformStyle: 'preserve-3d',
-                    transform: `rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`,
-                    opacity: opacity,
-                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                    background: `url(${project.chapters[0]?.image || '/placeholder.jpg'})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    border: isHovered && isCentered ? '3px solid #0DBCC1' : '2px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: isHovered && isCentered
-                      ? '0 35px 60px -12px rgba(13, 188, 193, 0.4)' 
-                      : '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                  key={`card-${project.projectId}-${idx}`}
+                  onClick={() => {
+                    if (idx !== currentIndex) {
+                      goToSlide(idx - currentIndex);
+                    }
                   }}
+                  style={{
+                    width: `${cardWidth}px`,
+                    marginRight: `${gap}px`,
+                    transform: isCurrent
+                      ? "scale(1)"
+                      : "scale(0.5)",
+                    transformOrigin: "bottom",
+                    opacity: isCurrent ? 1 : isPrevious ? 0.85 : 0.5,
+                  }}
+                  className={`h-[400px] sm:h-[460px] lg:h-[500px] flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative cursor-pointer group transition-all duration-700 ${isCurrent
+                    ? "border-2 border-[#0DBCC1]/40 shadow-[0_20px_50px_rgba(13,188,193,0.15)]"
+                    : "hover:opacity-100"
+                    }`}
                 >
-                  <div className="w-full h-full bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end p-6">
-                    <div>
-                      <p className="text-xs text-gray-300 mb-2 uppercase tracking-wider">
-                        {project.chapters[0]?.category || 'Project'}
-                      </p>
-                      <h4 className="text-xl font-bold text-white">
-                        {project.projectName}
-                      </h4>
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style={{
+                      backgroundImage: `url(${project.chapters?.[0]?.image || "/placeholder.jpg"})`,
+                    }}
+                  />
+                  {isCurrent && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent flex items-end p-6 sm:p-8">
+                      <div>
+                        <p className="text-xs sm:text-sm text-gray-200 font-medium uppercase tracking-wider flex items-center gap-2 mb-1">
+                          {project.chapters?.[0]?.category || "Project"}{" "}
+                          <span className="text-[#0DBCC1]">✦</span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
-      </div>
 
-      {/* Navigation Controls */}
-      <div className="flex items-center justify-center gap-6 mt-12">
-        {/* Previous Button */}
-        <button
-          onClick={handlePrev}
-          className="w-10 h-10 rounded-full border border-gray-300 hover:border-black flex items-center justify-center transition-colors"
-          aria-label="Previous project"
-        >
-          <ChevronLeft className="w-4 h-4 text-gray-600" />
-        </button>
-
-        {/* Dots Indicator */}
-        <div className="flex items-center gap-2">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className="focus:outline-none"
-              aria-label={`Go to project ${index + 1}`}
-            >
-              <div 
-                className={`rounded-full transition-all duration-300 ${
-                  index === getActualIndex() 
-                    ? 'w-2.5 h-2.5 bg-[#0DBCC1]' 
-                    : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                }`}
-              />
-            </button>
-          ))}
+        {/* Right Info & Thumbnails Block */}
+        <div className="w-full lg:w-[46%] flex flex-col justify-between pl-0 lg:pl-4 py-[15px]">
+          <div>
+            {/* Subheader Ticker */}
+            <div className="relative w-[200px] overflow-hidden mb-4">
+          <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4 font-medium">
+            <span className="flex gap-2 items-center">
+              Recent Work <span className="text-[#0DBCC1]">✦</span>
+            </span>
+            <span className="flex gap-2 items-center">
+              Recent Work <span className="text-[#0DBCC1]">✦</span>
+            </span>
+          </div>
         </div>
 
-        {/* Next Button */}
-        <button
-          onClick={handleNext}
-          className="w-10 h-10 rounded-full border border-gray-300 hover:border-black flex items-center justify-center transition-colors"
-          aria-label="Next project"
-        >
-          <ChevronRight className="w-4 h-4 text-gray-600" />
-        </button>
+            {/* Project Title */}
+            <h3 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-black font-syne mb-4 leading-tight transition-all duration-500">
+              {currentProject.projectName || "Project Title"}
+            </h3>
+
+            {/* Project Description */}
+            <p className="text-gray-600 text-[15px] sm:text-base lg:text-lg leading-relaxed mb-8 sm:mb-10 min-h-[72px] transition-all duration-500">
+              {currentProject.chapters?.[0]?.desc ||
+                "Exploring innovative digital solutions and impactful design experiences."}
+            </p>
+          </div>
+
+          {/* 3 Next Project Thumbnails Row */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-5">
+            {[1, 2, 3].map((offset) => {
+              const thumbIndex =
+                (actualIndex + offset) % (projects.length || 1);
+              const thumbProject = projects[thumbIndex] || {};
+
+              return (
+                <div
+                  key={`thumb-${offset}-${thumbIndex}`}
+                  onClick={() => goToSlide(offset)}
+                  className="relative h-[200px] sm:h-[230px] lg:h-[250px] rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group border border-gray-100/80"
+                >
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                    style={{
+                      backgroundImage: `url(${thumbProject.chapters?.[0]?.image || "/placeholder.jpg"
+                        })`,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/15 group-hover:bg-black/0 transition-colors" />
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
       </div>
     </section>
   );
 }
-
-

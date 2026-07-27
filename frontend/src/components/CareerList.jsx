@@ -149,7 +149,7 @@ export default function CareerList({
                 <div className="mt-5">
                   <Link
                     to={`/Careers/JobDetails/${job.id}`}
-                    className="inline-flex items-center gap-2 bg-[#00CED1] hover:bg-[#00B2B5] text-[#070B55] font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-md transition-all duration-300"
+                    className="inline-flex items-center gap-2 bg-[#00CED1] hover:bg-[#00B2B5] text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-md transition-all duration-300"
                   >
                     <span>Apply</span>
                     <svg
