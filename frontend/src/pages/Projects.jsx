@@ -280,15 +280,15 @@ export default function Projects() {
           <div>
             {/* Subheader Ticker */}
             <div className="relative w-[200px] overflow-hidden mb-4">
-          <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4 font-medium">
-            <span className="flex gap-2 items-center">
-              Recent Work <span className="text-[#0DBCC1]">✦</span>
-            </span>
-            <span className="flex gap-2 items-center">
-              Recent Work <span className="text-[#0DBCC1]">✦</span>
-            </span>
-          </div>
-        </div>
+              <div className="animate-scrollText text-[15px] tracking-wide text-black whitespace-nowrap flex gap-4 font-medium">
+                <span className="flex gap-2 items-center">
+                  Recent Work <span className="text-[#0DBCC1]">✦</span>
+                </span>
+                <span className="flex gap-2 items-center">
+                  Recent Work <span className="text-[#0DBCC1]">✦</span>
+                </span>
+              </div>
+            </div>
 
             {/* Project Title */}
             <h3 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-black font-syne mb-4 leading-tight transition-all duration-500">
@@ -318,8 +318,7 @@ export default function Projects() {
                   <div
                     className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                     style={{
-                      backgroundImage: `url(${thumbProject.chapters?.[0]?.image || "/placeholder.jpg"
-                        })`,
+                      backgroundImage: `url(${thumbProject.chapters?.[0]?.image || "/placeholder.jpg"})`,
                     }}
                   />
                   <div className="absolute inset-0 bg-black/15 group-hover:bg-black/0 transition-colors" />
