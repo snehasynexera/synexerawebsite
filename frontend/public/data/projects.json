@@ -1,40 +1,12 @@
 [
   {
-    "projectId": 1,
-    "projectName": "Synexera Website",
-    "chapters": [
-      {
-        "category": "Brand ✦ Website",
-        "title": "Overview",
-        "desc": "A visual-first platform to showcase services and case studies.",
-        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop",
-        "imagePosition": "left"
-      },
-      {
-        "category": "Brand ✦ Website",
-        "title": "Approach",
-        "desc": "Focused on clarity, high-performance, and simple navigation.",
-        "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=1000&fit=crop",
-        "imagePosition": "right"
-      },
-      {
-        "category": "Brand ✦ Website",
-        "title": "Impact",
-        "desc": "Delivered performance boosts & higher engagement.",
-        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=1000&fit=crop",
-        "imagePosition": "left"
-      }
-    ]
-  },
-
-  {
     "projectId": 2,
     "projectName": "Fintech Dashboard",
     "chapters": [
       {
         "category": "UX ✦ Web App",
         "title": "Overview",
-        "desc": "A real-time dashboard for financial monitoring.",
+        "desc": "An advanced financial dashboard that provides real-time insights into transactions, account balances, and spending trends through interactive visualizations and a user-friendly interface.",
         "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       },
@@ -61,7 +33,45 @@
       }
     ]
   },
-
+  {
+    "projectId": 7,
+    "projectName": "Social Media Platform",
+    "chapters": [
+      {
+        "category": "Social ✦ Web App",
+        "title": "Overview",
+        "desc": "A modern social media platform enabling seamless communication, content sharing, and real-time engagement through an intuitive and user-friendly interface.",
+        "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=1000&fit=crop",
+        "imagePosition": "left"
+      }
+    ]
+  },
+  {
+    "projectId": 4,
+    "projectName": "Mobile Gaming App",
+    "chapters": [
+      {
+        "category": "Mobile ✦ Gaming",
+        "title": "Overview",
+        "desc": "An engaging mobile gaming app offering immersive gameplay, interactive challenges, and a seamless user experience designed to keep players entertained and connected.",
+        "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=1000&fit=crop",
+        "imagePosition": "right"
+      }
+    ]
+  },
+  {
+    "projectId": 8,
+    "projectName": "VR Experience",
+    "chapters": [
+      {
+        "category": "VR ✦ Gaming",
+        "title": "Overview",
+        "desc": "An immersive virtual reality environment combining spatial audio, realistic physics, and interactive 3D elements for next-generation gaming and simulation.",
+        "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=1000&fit=crop",
+        "imagePosition": "right"
+      }
+    ]
+  },
   {
     "projectId": 3,
     "projectName": "E-commerce Redesign",
@@ -69,7 +79,7 @@
       {
         "category": "UI ✦ UX ✦ Website",
         "title": "Overview",
-        "desc": "A mobile-first redesign of a fashion e-commerce store.",
+        "desc": "A comprehensive mobile-first redesign of a high-growth fashion e-commerce store, featuring optimized onboarding, intuitive navigation, and streamlined checkout flows.",
         "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       },
@@ -89,21 +99,33 @@
       }
     ]
   },
-
   {
-    "projectId": 4,
-    "projectName": "Mobile Gaming App",
+    "projectId": 1,
+    "projectName": "Synexera Website",
     "chapters": [
       {
-        "category": "Mobile ✦ Gaming",
+        "category": "Brand ✦ Website",
         "title": "Overview",
-        "desc": "A multiplayer gaming experience for mobile devices.",
-        "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=1000&fit=crop",
+        "desc": "A visual-first platform showcasing innovative services, interactive brand identity, and data-driven case studies designed for high visual impact and performance.",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop",
+        "imagePosition": "left"
+      },
+      {
+        "category": "Brand ✦ Website",
+        "title": "Approach",
+        "desc": "Focused on clarity, high-performance, and simple navigation.",
+        "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=1000&fit=crop",
         "imagePosition": "right"
+      },
+      {
+        "category": "Brand ✦ Website",
+        "title": "Impact",
+        "desc": "Delivered performance boosts & higher engagement.",
+        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=1000&fit=crop",
+        "imagePosition": "left"
       }
     ]
   },
-
   {
     "projectId": 5,
     "projectName": "AI Platform",
@@ -111,13 +133,12 @@
       {
         "category": "AI ✦ Machine Learning",
         "title": "Overview",
-        "desc": "An intelligent platform powered by advanced AI algorithms.",
+        "desc": "An intelligent analytics platform powered by advanced machine learning models, transforming complex data pipelines into actionable business insights with real-time predictive modeling.",
         "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=1000&fit=crop",
         "imagePosition": "left"
       }
     ]
   },
-
   {
     "projectId": 6,
     "projectName": "Healthcare Portal",
@@ -125,36 +146,8 @@
       {
         "category": "Healthcare ✦ Web",
         "title": "Overview",
-        "desc": "A patient-centric healthcare management system.",
+        "desc": "A patient-centric healthcare management system that streamlines secure appointment scheduling, electronic medical records access, and interactive telehealth consultations.",
         "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=1000&fit=crop",
-        "imagePosition": "right"
-      }
-    ]
-  },
-
-  {
-    "projectId": 7,
-    "projectName": "Social Media Platform",
-    "chapters": [
-      {
-        "category": "Social ✦ Web App",
-        "title": "Overview",
-        "desc": "A next-generation social networking platform.",
-        "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=1000&fit=crop",
-        "imagePosition": "left"
-      }
-    ]
-  },
-
-  {
-    "projectId": 8,
-    "projectName": "VR Experience",
-    "chapters": [
-      {
-        "category": "VR ✦ Gaming",
-        "title": "Overview",
-        "desc": "An immersive virtual reality experience.",
-        "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&h=1000&fit=crop",
         "imagePosition": "right"
       }
     ]
