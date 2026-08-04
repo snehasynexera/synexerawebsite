@@ -124,5 +124,39 @@ export const jobsData = [
       'Flexible remote schedule aligned with academic or personal goals.',
       'Hands-on experience deploying production-grade code.'
     ]
+  },
+  {
+    id: 'python-ai-developer-intern',
+    category: 'Intern',
+    title: 'Python AI Developer Intern',
+    description:
+      'Kickstart your AI career! We\'re looking for passionate Python developers eager to build real-world AI/ML solutions and scalable backends.',
+    location: 'Remote',
+    type: 'Full-time / Internship',
+    salary: 'Stipend-based',
+    department: 'AI & Backend Engineering',
+    experience: 'Fresher / 0-1 Year',
+    applyEmail: 'hr@synexera.com',
+    overview:
+      'Join Synexera as a Python AI Developer Intern and get hands-on exposure to cutting-edge AI and ML projects. You will work closely with experienced developers to build responsive UIs, design scalable REST APIs using Python and Django, and contribute to live AI/ML initiatives — gaining invaluable real-world engineering experience.',
+    responsibilities: [
+      'Develop responsive UIs using React.js, HTML5, and CSS3.',
+      'Build scalable backends and REST APIs with Python and Django.',
+      'Work on live projects involving AI and ML concepts.',
+      'Collaborate with experienced developers to bring ideas to life.'
+    ],
+    requirements: [
+      'Eligibility: Freshers or candidates with up to 1 year of experience.',
+      'Must-Have Skills: Strong problem-solving skills and a hunger to learn.',
+      'Must-Have Skills: Proficiency in JavaScript and/or Python.',
+      'Good to Have: Basic understanding of AI/ML concepts.',
+      'Soft Skills: Great communication and a team-first mindset.'
+    ],
+    benefits: [
+      'Hands-on experience working on live AI and ML projects.',
+      'Direct mentorship from experienced engineers.',
+      'Full-time conversion opportunity upon successful internship completion.',
+      'Flexible remote schedule to suit academic or personal goals.'
+    ]
   }
 ];
