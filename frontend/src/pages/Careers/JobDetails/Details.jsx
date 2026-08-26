@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { jobsData } from '../../../data/jobsData'
+import NavBarother from '../../../components/NavBarother'
 import Footer from '../../Footer'
 
 export default function Details() {
@@ -37,6 +38,7 @@ export default function Details() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-between pt-28 sm:pt-32">
+      <NavBarother />
       {/* Main Content */}
       <div className="max-w-4xl mx-auto w-full px-6 sm:px-10 pb-20">
         {/* Navigation Back */}

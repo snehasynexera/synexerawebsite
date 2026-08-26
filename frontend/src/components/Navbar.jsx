@@ -162,7 +162,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Contact Us Button */}
+          {/* Career Button */}
           <button
             onClick={() => navigate("/Careers/List")}
             className={`absolute right-0 top-1/2 transform -translate-y-1/2 px-6 py-2 border-2 rounded-full text-sm font-medium transition-all duration-300 ${isOverDarkBanner
@@ -200,6 +200,17 @@ export default function Navbar() {
               {label}
             </button>
           ))}
+
+          {/* Mobile Career Link */}
+          <button
+            onClick={() => {
+              navigate("/Careers/List");
+              setIsOpen(false);
+            }}
+            className="w-full text-center text-lg font-medium text-white hover:text-[#22F6F2] transition-all duration-300"
+          >
+            Careers
+          </button>
 
           <button
             className="mt-2 px-6 py-2 bg-[#22F6F2] text-[#071234] rounded-full font-semibold hover:bg-[#18c9c5] transition"

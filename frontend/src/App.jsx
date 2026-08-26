@@ -25,7 +25,10 @@ import List from "./pages/Careers/List";
 import Details from "./pages/Careers/JobDetails/Details";
 function AppContent() {
   const location = useLocation();
-  const isFullReviewRoute = location.pathname === "/fullReview";
+  const hideMainNavbar = 
+    location.pathname === "/fullReview" || 
+    location.pathname.startsWith("/Services/") || 
+    location.pathname.startsWith("/Careers/");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,7 +36,7 @@ function AppContent() {
 
   return (
     <>
-      {!isFullReviewRoute && <Navbar />}
+      {!hideMainNavbar && <Navbar />}
 
       <div className="min-h-screen">
         <Routes>

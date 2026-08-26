@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
+import NavBarother from '../../components/NavBarother'
 import HeroSectionService from '../../components/HeroSectionService'
 import SynexeraServices from "../../components/SynexeraServices";
 import WhyChooseUs from '../../components/WhyChooseUs';
@@ -10,10 +10,7 @@ export default function ContentWriting () {
   return (
     
     <div className="relative">
-      <div className="absolute top-4 left-4 sm:left-8 z-20 flex items-center gap-2 sm:gap-3">
-        <img src="/images/synexera.svg" alt="Synexera" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-contain" />
-        <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">Synexera</span>
-      </div>
+      <NavBarother />
       <HeroSectionService 
        heading1=" Words That Drive Results"
       heading2="Transforming Your"

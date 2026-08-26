@@ -162,8 +162,8 @@ export default function HeroSectionCareer({ Number, onSearch, activeKeyword = ''
         </div>
 
         {/* Right Column: Refined Hero Portrait Card & Floating Stats Card */}
-<div className="w-full lg:w-[48%] flex items-start justify-center lg:justify-center pr-4 sm:pr-8 lg:pr-12 mt-4 lg:-mt-16 xl:-mt-20">
-  <div className="relative -translate-x-2 sm:-translate-x-4 lg:-translate-x-12 xl:-translate-x-16">
+        <div className="w-full lg:w-[48%] flex items-start justify-center mt-12 lg:-mt-16 xl:-mt-20">
+          <div className="relative -translate-x-8 sm:-translate-x-10 md:-translate-x-12 lg:-translate-x-12 xl:-translate-x-16">
     {/* White Background Card (Bottom Layer) */}
     <div className="absolute top-0 left-0 w-[280px] sm:w-[330px] lg:w-[350px] xl:w-[390px] h-[390px] sm:h-[450px] lg:h-[470px] xl:h-[510px] rounded-[36px] xl:rounded-[42px] bg-white origin-bottom-left rotate-6"></div>
     
